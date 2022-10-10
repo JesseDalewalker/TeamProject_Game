@@ -4,6 +4,12 @@ CSE130 C/C++ Team Project
 ## Install Git to Cygwin (If you don't already have it)
 [CLICK HERE](https://git-scm.com/download/win)
 
+## Configure your name to be able to send update messages by typing these in
+```
+$ git config --global user.email "you@example.com"
+$ git config --global user.name "Your Name"
+```
+
 ## Get your Git Started
 In your command prompt after installation. Know where you want to clone the repository and type in this:
 ```
