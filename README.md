@@ -4,6 +4,12 @@ CSE130 C/C++ Team Project
 ## Install Git to Cygwin (If you don't already have it)
 [CLICK HERE](https://git-scm.com/download/win)
 
+## Get your Git Started
+In your command prompt after installation. Know where you want to clone the repository and type in this:
+```
+$ git clone https://github.com/JesseDalewalker/TeamProject_Game.git
+```
+
 ## Git Workflow
 ### **Important note:** Make sure you are committing your changes on your own branch before merging onto the main branch!
 1. Ensure you're in the main branch by checking with: `$ git branch -a`
