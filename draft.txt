@@ -1,0 +1,109 @@
+CSE 130 Story Draft
+Opening Text: The story begins in the small fishing village near the coast of <Continent name>. <Player
+Name> awakens in a small cottage in a daze with no recollection of how they got there. Upon a quick
+glance around the room <Player name> realizes they are alone inside of what seems to be a cottage.
+Decisions:
+1. Get up and leave the cottage.
+2. Take a closer look at your surroundings.
+D1: You walk outside of the small one room cottage and flinch at the smell around you.
+D2: You look around the room with a closer inspection and gain some items before walking out the door
+of the cottage. (These items can be anything we want to add as a check to see if the player passes an
+event)
+(These two decisions still lead to the same next text describing the scenery outside)
+Scenery: As you look around you see the buildings destroyed and covered in a foul smelling viscous
+substance. There is nothing to indicate that people still live here or may still be here. You look to the
+ocean and see something shining into your eyes on the beach.
+Decisions:
+1. Go to the beach and investigate the shining object.
+2. Ignore the object and make your way to the nearest city.
+3. Go into the nearby woods
+D1: You go to the beach to find the shine is actually a set of armor, and someone seems to still be inside
+of it. The knight joins your party (at this point the player would get to name the knight). You and the
+knight set off and go where?
+Decisions:
+1. Go to the nearest city.
+2. Head on over to the village again
+3. Talk to your new knight friend
+D1D1: You and the knight decide to head on to the nearest city of Seamount in search of answers for
+what’s happening around you. On the way you discover a wagon that has lost one of its wheels with
+someone crying for help inside.
+Decisions:
+1. Go to the source of the crying.
+2. Continue on the way to the city.
+D1D1D1: As you and knight feel like it could be possible to abandon the cries for help you just can’t
+bring yourselves to do it. You and the knight look inside of the wagon and see a small farm girl crying for
+help inside. The Farm Girl joins your party. (At this point the player can name the farm girl as well.)
+D1D1D2: You and the knight ignore the blatant and loud cries for help and choose to not lose anytime on
+your endeavor to reach the city. Suddenly along the way you and the knight are ambushed by two
+plant-like creatures that appear similar in appearance to a venus flytrap. The knight tries his hardest to
+hold them off but fails and you as well fall prey to the plants. If only you had someone with you that knew
+more about plants like a farmer or maybe that farmer's daughter? (Game ends here with a game over since
+the player chose not to help the person in the wagon.)
+D1D2: You and the knight feel compelled to head back to the destroyed village once more and find
+nothing but destruction and the same green goop lining the rubble. Until you hear the knight call out from
+one of the destroyed houses saying that he has found someone. What lies before you is some kind of slime
+creature similar to the goop that surrounds the place. It seems friendly enough and follows you and the
+knight out of the rubble. Slime has joined your party. (At this point the player can name the slime)
+Side Note: These beginning choices dictate the two other party members that the player travels with. And
+these choices will matter more in events similar to how you get to spend your money at the beginning of
+Oregon trail.
+D1D3: You and the knight exchange information about how each of you got there and it appears that
+neither of you remember anything, not even your own names. While talking about the strange coincidence
+the knight drops a piece of paper out of his pocket. Reading it reveals that the knight had been discharged
+for drinking on duty. You both feel a bit embarrassed and decide to head to the city.
+D2: You ignore the shiny glint on the beach and trek down the western path to the nearest city of
+Seamont. While walking to the city you feel somewhat lonely and isolated as there is not a single sound
+except the voice in your head. You begin to imagine a sort of traveling buddy that could really help with
+your loneliness on this journey to Seamont. Imaginary Friend has joined the party. (At this point the
+player names their imaginary friend and it takes up one of the two party slots.)
+D3: Something compels you towards the forest. Wandering about into the forest you begin to walk deeper
+and deeper. Until you realize that you are now lost. You try your hardest to recall the direction you came
+from but to no avail. After an hour of walking aimlessly you spot someone in the forest and call out to
+them. A hunter comes up to you and helps you out of the woods onto the main road. The hunter says that
+he can't find any animals in the entire forest and doesn't remember anything about who he is. He decides
+to head with you to Seamont in search of answers.
+Road to Seamont: Finally you and your party members are off to Seamont in search of answers and
+unaware of the troubles that may lie ahead.
+Consequences based on party members while on the path:
+Knight and Farm girl: While on the path to Seamount you realize that you are starving and ask the farm
+girl if there is anything you could forage for in the woods along the path. The farmer girl forages for a
+second and hands you a strange looking mushroom.
+Decisions:
+1. Eat the mushroom.
+2. Pass on the mushroom.
+D1:You eat the mushroom and feel a strange tingle throughout your body. As this feeling goes through
+your legs you drop to the floor instantly and the knight and farm girl go to help you up. You try to stand
+on your own but to no avail. There is no sensation or feeling in either of your legs. Luckily the knight
+offers to carry you the rest of the way to Seamont. (At this point the player loses the ability to walk and
+the knight loses any potential to defend himself while carrying the player)
+D2: You pass on the mushroom and decide that it is better if the party waits until they arrive in Seamont
+to search for some kind of nourishment.
+Knight and Slime: The knight and slime make for a merry traveling party and the entire time you feel a
+sort of elation about what might be in store for you all in Seamont. You suddenly feel famished and
+somehow like it were reading your mind the slime splits a part of itself off. It emotes towards you and its
+movements read as if it were beckoning you to eat the split piece. Although you are humbled by the offer
+the goop reeks and is currently on the floor.
+Decisions:
+1. Eat the slime
+2. Don't eat the slime.
+D1: Reluctantly you put the slime in your mouth and despite the putrid smell it actually tastes quite good.
+Suddenly you feel a tingle run through your body and you feel as if you have gotten stronger somehow.
+(The player gains strength that will be important later on).
+D2: You choose to not eat the slime. Slime motions a somewhat sad face as best it can. The knight feels
+sorry for the creature and eats the slime off the floor. The knight feels completely find and even goes as
+far to say that slime tasted delicious
+Imaginary Friend: You and your imaginary friend have a great time on the path to Seamont playing some
+childish games along the way. Until you hear your stomach growling and find yourself starving from all
+the walking you’ve been doing. Your imaginary friend volunteers to go and find some food for you. As he
+heads off into the woods you wait patiently on the road for him to come back. A while passes and he
+comes back with nothing. Since he isn’t real and can’t interact with anything in the real world. You
+continue down the path. (Maybe add some kind of negative trait to the player).
+Hunter: You and the hunter chat while walking and after a while you both get hungry. Luckily the hunter
+is very knowledgeable on all of the wild berries and plants in the area. He leaves and comes back in a
+couple minutes with a cape full of wild plants and fruits. You and the hunter eat your fill and feel great
+about the rest of your journey. (Maybe some bonus for being well fed but also kind of just the standard
+nothing happens party member moment).
+Arriving in Seamont: After the trial and tribulations of a simple walk to Seamont you and your party
+finally arrive. Something is strange though the city gates are open and there isn’t much noise coming from
+the city. The building and sprawling castle seen from outside of the city walls seem to be in perfect
+condition. After examining the outside of the city you and your party head on in and see if they can find
