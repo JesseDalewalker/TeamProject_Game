@@ -1,8 +1,10 @@
 #include <iostream>
+
 using namespace std;
 
 class Being {
 public:
+	bool exists = false;
 	string name;
 	int HP;
 	int MP;
@@ -14,6 +16,9 @@ class partymembers: public Being{
 };
 
 int main() {
+	partymembers knight;
+	partymembers farmgirl;
+	partymembers hunter;
 	cout << "The story begins in the small fishing village near the coast of Nubera." << endl;
 	cout << "You open you eyes and find yourself laying in a bed" << endl;
 	cout << "In your daze, you seek to recall your name." << endl << "What is your name?" << endl;
@@ -21,7 +26,7 @@ int main() {
 	cin >> maincharacter.name;
 	cout << "\"Ah thanks right, my name is " << maincharacter.name << "\"" << endl;
 	cout << maincharacter.name << " awakens in a small cottage in a daze with no recollection of how they got there." << endl;
-	cout << "Upon a quick glance around the room" << maincharacter.name << " realizes they are alone inside of what seems to be a cottage." << endl;
+	cout << "Upon a quick glance around the room " << maincharacter.name << " realizes they are alone inside of what seems to be a cottage." << endl;
 
 	decision1:
 	cout << "What will you do?" << endl;
@@ -65,23 +70,41 @@ int main() {
 			cout << "As you feel like it could be possible to abandon the cries for help you just can’t " << endl;
 			cout << "bring yourselves to do it.You and the knight look inside of the wagon and see a small farm girl crying " << endl;
 			cout << "for help inside. The Farm Girl joins your party.";
-			partymembers farmgirl;
+			farmgirl.exists = true;
 			cout << "You have seen this farm girl before.... what was her name?";
 			cin >> farmgirl.name;
 			cout << "Ah thats right, her name was " << farmgirl.name << ".";
+			goto afterfarmgirl;
 		}
 		else if (decision2d1 == 2) {
-			cout << "You and the knight ignore the blatant and loud cries for help and choose to not lose anytime " << endl;
-			cout << "on your endeavor to reach the city. Suddenly along the way you and the knight are ambushed by two " << endl;
-			cout << "plant - like creatures that appear similar in appearance to a venus flytrap. The knight tries his hardest " << endl;
-			cout << "to hold them off but fails and you as well fall prey to the plants. If only you had someone with you that knew " << endl;
-			cout << "more about plants like a farmer.";
-			goto gameover;
+			cout << "You ignore the blatant and loud cries for help and choose to not lose anytime " << endl;
+			cout << "on your endeavor to reach the city." << endl;
+				afterfarmgirl:
+				cout << "Suddenly along the way you are ambushed by two plant-like creatures that appear similar in appearance to a venus flytrap." << endl;
+				if (knight.exists) {
+					cout << "The knight tries his hardest to hold them off but fails" << endl;
+				}
+				else {
+					cout << "The plant-like creature raises his tenticle like arms and crushes you." << endl;
+					cout << "if only there was a knight to save you" << endl;
+					goto gameover;
+				}
+				if (farmgirl.exists) {
+					cout << "\"I'll take care of this!\" the farm girl exclaims and she walks toward the plant-like creatures." << endl;
+					cout << "\"Poor things are just hungry\" the farm girl reaches into her pocket, pulls out some plant food" << endl;
+					cout << "While the plant like creatures are distracted you are free to continue on your journey." << endl;
+				}
+				else {
+					cout << "You fall prey to the plants. If only you had someone with you that knew " << endl;
+					cout << "more about plants like a farmer." << endl;
+					goto gameover;
+				}
+			
 		}
 		
 	}
 	else if (decision2 == 1) {
-		partymembers knight;
+		knight.exists = true;
 		cout << "You go to the beach to find the shine is actually a set of armor, and someone seems to still " << endl;
 		cout << "be inside of it. \"its dangerous around!\" The knight yells. \"We should stick together!\"" << endl;
 		cout << "The knight wants to join your party." << endl;
@@ -99,7 +122,17 @@ int main() {
 			goto nearbycity;
 		}
 		else if (subdecide == 2) {
-
+			cout << "Something compels you towards the forest. Wandering about into the forest you begin to walk deeper " << endl;
+			cout << "and deeper.Until you realize that you are now lost. You try your hardest to recall the direction you" << endl;
+			cout << "came from but to no avail. After an hour of walking aimlessly you spot someone in the forest and" << endl;
+			cout << "call out to them. A hunter comes up to you and helps you out of the woods onto the main road." << endl;
+			cout << "The hunter says that he can't find any animals in the entire forest and doesn't remember anything" << endl;
+			cout << "about who he is. He decides to join your party." << endl;
+			cout << "What is the hunter's name?";
+			cin >> hunter.name;
+			cout << "You welcome " << hunter.name << " into your party and make your way out of the forest" << endl;
+			cout << "Finally you decide to make your way to the nearest city"<< endl;
+			goto nearbycity;
 		}
 		else {
 			cout << "That is not a valid entry, please enter a valid entry" << endl;
@@ -109,6 +142,19 @@ int main() {
 	else {
 		cout << "That is not a valid entry, please enter a valid entry" << endl;
 		goto decision2;
+	}
+
+	cout << "You travel along the well worn road for what seems like hours. The night is approaching and your stomach begins to grumble" << endl;
+	cout << "Now would be a good time to get some food" << endl;
+	if (hunter.exists) {
+		cout << "You send your new-found hunter friend out into the wilds to gather food" << endl;
+		cout << "After a short stint of time he returns with a few captured rabbits. Your party will get to eat tonight and" << endl;
+		cout << "Continue their journey";
+	}
+	else {
+		cout << "After hours of searching for food you come up empty-handed. Your party becomes too hungry and weak to finish the journey" << endl;
+		cout << "Unforunately you all starve. If only you had a hunter with you";
+			goto gameover;
 	}
 gameover:
 	cout << "Game over.";
