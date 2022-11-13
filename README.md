@@ -1,10 +1,9 @@
 # TeamProject_Game
 CSE130 C/C++ Team Project
 
-## Install Git to Cygwin (If you don't already have it)
-[CLICK HERE](https://git-scm.com/download/win)
+## Install VS Code with Git credentials added
 
-## Configure your name to be able to send update messages by typing these in
+## Configure your name to be able to send update messages by typing these in or work with Git in the VS Code
 ```
 $ git config --global user.email "you@example.com"
 $ git config --global user.name "Your Name"
