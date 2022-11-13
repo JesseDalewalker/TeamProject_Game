@@ -69,13 +69,13 @@ int main() {
 		int decision2d1;
 		cin >> decision2d1;
 		if (decision2d1 == 1) {
-			cout << "As you feel like it could be possible to abandon the cries for help you just can’t " << endl;
+			cout << "As you feel like it could be possible to abandon the cries for help you just can't " << endl;
 			cout << "bring yourselves to do it.You and the knight look inside of the wagon and see a small farm girl crying " << endl;
 			cout << "for help inside. The Farm Girl joins your party." << endl;
 			farmgirl.exists = true;
 			cout << "You have seen this farm girl before.... what was her name?" << endl;
 			cin >> farmgirl.name;
-			cout << "Ah thats right, her name was " << farmgirl.name << ".";
+			cout << "Ah thats right, her name was " << farmgirl.name << "." << endl;
 			goto afterfarmgirl;
 		}
 		else if (decision2d1 == 2) {
@@ -130,7 +130,7 @@ int main() {
 			cout << "call out to them. A hunter comes up to you and helps you out of the woods onto the main road." << endl;
 			cout << "The hunter says that he can't find any animals in the entire forest and doesn't remember anything" << endl;
 			cout << "about who he is. He decides to join your party." << endl;
-			cout << "What is the hunter's name?";
+			cout << "What is the hunter's name?" << endl;
 			hunter.exists = true;
 			cin >> hunter.name;
 			cout << "You welcome " << hunter.name << " into your party and make your way out of the forest" << endl;
@@ -190,7 +190,7 @@ int main() {
 	}
 	else if (decision3 == 2) {
 		cout << "You pass on the mushroom and decide that it is better if the party waits until they arrive in Seamont" << endl;
-		cout << "to search for some kind of nourishment.";
+		cout << "to search for some kind of nourishment." << endl;
 	}
 	else {
 		cout << "This is not a valid entry, please enter a valid entry";
@@ -225,9 +225,9 @@ int main() {
 	}
 
 	cout << "Arriving in Seamont: After the trial and tribulations of a simple walk to Seamont you and your party" << endl;
-	cout << "finally arrive. Something is strange though the city gates are open and there isn’t much noise coming from" << endl;
+	cout << "finally arrive. Something is strange though the city gates are open and there isn't much noise coming from" << endl;
 	cout << "the city. The building and sprawling castle seen from outside of the city walls seem to be in perfect" << endl;
-	cout << "condition. After examining the outside of the city you and your party head on in and see if they can find" << endl;
+	cout << "condition. After examining the outside of the city you and your party head on in and see if they can find anyone in the city." << endl;
 	// insert new code here
 gameover:
 	cout << "Game over.";
