@@ -139,7 +139,12 @@ int main() {
 			goto subsubdecide;
 		}
 	}
-	else {
+	else if (decision2 == 3) {
+		cout << "You wander around the woods for what seems like hours. You quickly lose your way." << endl;
+		cout << "Suddenly you are attacked by a pack of wolves, you are never heard from again" << endl;
+		goto gameover;
+
+	} else {
 		cout << "That is not a valid entry, please enter a valid entry" << endl;
 		goto decision2;
 	}
