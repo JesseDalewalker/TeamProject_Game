@@ -12,7 +12,9 @@ public:
 };
 
 class partymembers: public Being{
-
+public:
+	bool carrying = false;
+	bool powerup = false;
 };
 
 int main() {
@@ -69,9 +71,9 @@ int main() {
 		if (decision2d1 == 1) {
 			cout << "As you feel like it could be possible to abandon the cries for help you just can’t " << endl;
 			cout << "bring yourselves to do it.You and the knight look inside of the wagon and see a small farm girl crying " << endl;
-			cout << "for help inside. The Farm Girl joins your party.";
+			cout << "for help inside. The Farm Girl joins your party." << endl;
 			farmgirl.exists = true;
-			cout << "You have seen this farm girl before.... what was her name?";
+			cout << "You have seen this farm girl before.... what was her name?" << endl;
 			cin >> farmgirl.name;
 			cout << "Ah thats right, her name was " << farmgirl.name << ".";
 			goto afterfarmgirl;
@@ -82,7 +84,7 @@ int main() {
 				afterfarmgirl:
 				cout << "Suddenly along the way you are ambushed by two plant-like creatures that appear similar in appearance to a venus flytrap." << endl;
 				if (knight.exists) {
-					cout << "The knight tries his hardest to hold them off but fails" << endl;
+					cout << "The knight tries his hardest to hold them off but fails." << endl;
 				}
 				else {
 					cout << "The plant-like creature raises his tenticle like arms and crushes you." << endl;
@@ -129,6 +131,7 @@ int main() {
 			cout << "The hunter says that he can't find any animals in the entire forest and doesn't remember anything" << endl;
 			cout << "about who he is. He decides to join your party." << endl;
 			cout << "What is the hunter's name?";
+			hunter.exists = true;
 			cin >> hunter.name;
 			cout << "You welcome " << hunter.name << " into your party and make your way out of the forest" << endl;
 			cout << "Finally you decide to make your way to the nearest city"<< endl;
@@ -153,14 +156,79 @@ int main() {
 	cout << "Now would be a good time to get some food" << endl;
 	if (hunter.exists) {
 		cout << "You send your new-found hunter friend out into the wilds to gather food" << endl;
-		cout << "After a short stint of time he returns with a few captured rabbits. Your party will get to eat tonight and" << endl;
-		cout << "Continue their journey";
+		cout << "After a short stint of time he returns with a few captured rabbits. Your party will get to eat tonight and continue their journey" << endl;
 	}
 	else {
 		cout << "After hours of searching for food you come up empty-handed. Your party becomes too hungry and weak to finish the journey" << endl;
 		cout << "Unforunately you all starve. If only you had a hunter with you";
 			goto gameover;
 	}
+	cout << "You continue on your journey and along the path you see a green wobbly blob laying in the middle of the road" << endl;
+	cout << "Curious, you decide to poke it" << endl;
+	cout << "\"Hey! Keep your hands to yourself there mate!\" you hear come from the slime" << endl;
+	cout << "\"You don't see me intrupting you on you journey do ya? Where are you headed anyway?\"" << endl;
+	cout << "You explain to the slime that you are headed to Seamont..." << endl;
+	cout << "\"What a coincidence! So am I, how about you allow me to tag along?\" before you can even make up your mind" << endl;
+	cout << "the slime jumps on your back. Exhausted, you decide not to pick a fight and you continue on your journey....."<< endl;
+	cout << "You continue on your journey for another day. Suddenly you find yourself in a forest still following the same road" << endl;
+	cout << "Hungry again, you ask " << farmgirl.name << " if there is anything she could " << endl;
+	cout << "forage for in the woods along the path. " << farmgirl.name << " agrees to take a look. " << endl;
+	cout << "Moment later she reemerges from the tree line carrying some strange mushrooms" << endl;
+	decide3:
+	cout << "What will you do?" << endl;
+	cout << "1. Eat the mushrooms" << endl;
+	cout << "2. Pass on the mushrooms" << endl;
+	int decision3;
+	cin >> decision3;
+	cout << endl;
+	if (decision3 == 1) {
+		cout << "You eat the mushroom and feel a strange tingle throughout your body.As this feeling goes through" << endl;
+		cout << "your legs you drop to the floor instantly and " << knight.name << " and " << farmgirl.name << " go to help you up." << endl;
+		cout << "You try to stand on your own but to no avail. There is no sensation or feeling in either of your legs." << endl;
+		cout << "Luckily the knight offers to carry you the rest of the way to Seamont." << endl;
+		knight.carrying = true;
+	}
+	else if (decision3 == 2) {
+		cout << "You pass on the mushroom and decide that it is better if the party waits until they arrive in Seamont" << endl;
+		cout << "to search for some kind of nourishment.";
+	}
+	else {
+		cout << "This is not a valid entry, please enter a valid entry";
+		goto decide3;
+	}
+
+	cout << "The knight, slime, hunter, and farm girl make for a merry traveling party and the entire time you feel a" << endl;
+	cout << "sort of elation about what might be in store for you all in Seamont. You suddenly feel famished and" << endl;
+	cout << "somehow like it were reading your mind the slime splits a part of itself off. It emotes towards you and its" << endl;
+	cout << "movements read as if it were beckoning you to eat the split piece. Although you are humbled by the offer" << endl;
+	cout << "the goop reeks and is currently on the floor.";
+	int decision4;
+	dec4:
+	cout << "What will you do?" << endl;
+	cout << "1. Eat the slime" << endl;
+	cout << "2. Don't eat the slime." << endl;
+	cin >> decision4;
+	if (decision4 == 1) {
+		cout << "Reluctantly you put the slime in your mouth and despite the putrid smell it actually tastes quite good." << endl;
+		cout << "Suddenly you feel a tingle run through your body and you feel as if you have gotten stronger somehow." << endl;
+			maincharacter.powerup = true;
+	}
+	else if (decision4 == 2) {
+		cout << "You choose to not eat the slime. Slime motions a somewhat sad face as best it can. The knight feels." << endl;
+		cout << "sorry for the creature and eats the slime off the floor. The knight feels completely find and even goes as" << endl;
+		cout << "far to say that slime tasted delicious";
+			knight.powerup = true;
+	}
+	else {
+		cout << "That is not a valid entry. Please enter a valid entry";
+			goto dec4;
+	}
+
+	cout << "Arriving in Seamont: After the trial and tribulations of a simple walk to Seamont you and your party" << endl;
+	cout << "finally arrive. Something is strange though the city gates are open and there isn’t much noise coming from" << endl;
+	cout << "the city. The building and sprawling castle seen from outside of the city walls seem to be in perfect" << endl;
+	cout << "condition. After examining the outside of the city you and your party head on in and see if they can find" << endl;
+	// insert new code here
 gameover:
 	cout << "Game over.";
 	return 0;
