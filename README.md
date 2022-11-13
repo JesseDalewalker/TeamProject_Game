@@ -1,10 +1,9 @@
 # TeamProject_Game
 CSE130 C/C++ Team Project
 
-## Install Git to Cygwin (If you don't already have it)
-[CLICK HERE](https://git-scm.com/download/win)
+## Install VS Code with Git credentials added
 
-## Configure your name to be able to send update messages by typing these in
+## Configure your name to be able to send update messages by typing these in or work with Git in the VS Code
 ```
 $ git config --global user.email "you@example.com"
 $ git config --global user.name "Your Name"
@@ -15,6 +14,10 @@ In your command prompt after installation. Know where you want to clone the repo
 ```
 $ git clone https://github.com/JesseDalewalker/TeamProject_Game.git
 ```
+Another way and may be easier, to to select the "<> CODE" tab and either clone from copying or from opening with VS Code.
+
+## VS Code
+1. You will see some files. Click on the "Game" folder and find "game.sln" file. Double-click on that to open it. Then you can go to source --> game.cpp for the code.
 
 ## Git Workflow
 ### **Important note:** Make sure you are committing your changes on your own branch before merging onto the main branch!
@@ -24,9 +27,14 @@ $ git clone https://github.com/JesseDalewalker/TeamProject_Game.git
 ```
 $ git checkout -b <new-branch>
 ```
+```
+## VS CODE
+Click on "Git" --> "New Branch"
+```
+
 #### (Example: landing page -> `$ git checkout -b landing`)
 4. Start coding!
-5. Run commit commands to **your** branch
+5. Run commit commands to **your** branch (In VS Code: click "git"-->"Commit or Stash.."--> Select files to "Stage" by selecting the "+" icon on the right of file. Add the message and commit)
 ```
 $ git add .
 $ git commit -m "Your message here"
