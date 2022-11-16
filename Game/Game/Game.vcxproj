@@ -141,6 +141,12 @@
   <ItemGroup>
     <ClCompile Include="..\..\game.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\VisualAidStorySoFar.pdf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\draft.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

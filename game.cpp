@@ -1,4 +1,5 @@
 #include <iostream>
+#include <Windows.h>
 
 using namespace std;
 
@@ -17,26 +18,54 @@ public:
 	bool powerup = false;
 };
 
+void begin() {
+	system("cls");
+	system("Color F5");
+	cout << "*************************************************************************************" << endl;
+	cout << "*************************************************************************************" << endl;
+	cout << "*****************************/*********************\**********************************" << endl;
+	cout << "****************************/***********************\*********************************" << endl;
+	cout << "***************************/*************************\********************************" << endl;
+	cout << "**************************/***************************\*******************************" << endl;
+	cout << "*************************/*****************************\******************************" << endl;
+	cout << "************************/*******************************\*****************************" << endl;
+	cout << "********************           Welcome to NUBERA!!!         *************************" << endl;
+	cout << "************************\*******************************/*****************************" << endl;
+	cout << "*************************\*****************************/******************************" << endl;
+	cout << "**************************\***************************/*******************************" << endl;
+	cout << "***************************\*************************/********************************" << endl;
+	cout << "****************************\***********************/*********************************" << endl;
+	cout << "*****************************\*********************/**********************************" << endl;
+	cout << "*************************************************************************************" << endl;
+	cout << "*************************************************************************************" << endl;
+	cout << endl;
+	cout << "               Let us begin your journey...(Press ENTER to continue)" << endl;
+	cin.ignore(); //https://stackoverflow.com/questions/903221/press-enter-to-continue
+}
+
 int main() {
 	partymembers knight;
 	partymembers farmgirl;
 	partymembers hunter;
+	begin();
+	system("cls");
+	system("Color B0"); //https://www.geeksforgeeks.org/how-to-print-colored-text-in-c/ 
 	cout << "The story begins in the small fishing village near the coast of Nubera." << endl;
 	cout << "You open you eyes and find yourself laying in a bed" << endl;
 	cout << "In your daze, you seek to recall your name." << endl << "What is your name?" << endl;
 	partymembers maincharacter;
 	cin >> maincharacter.name;
 	cout << "\"Ah thanks right, my name is " << maincharacter.name << "\"" << endl;
-	cout << maincharacter.name << " awakens in a small cottage in a daze with no recollection of how they got there." << endl;
+	system("cls");	cout << maincharacter.name << " awakens in a small cottage in a daze with no recollection of how they got there." << endl;
 	cout << "Upon a quick glance around the room " << maincharacter.name << " realizes they are alone inside of what seems to be a cottage." << endl;
 
 	decision1:
 	cout << "What will you do?" << endl;
 	cout << "1. Get up and leave the cottage." << endl;
-	cout << "2.Take a closer look at your surroundings." << endl;
+	cout << "2. Take a closer look at your surroundings." << endl;
 	int decision;
 	cin >> decision;
-	if (decision == 1) {
+	system("cls");	if (decision == 1) {
 		cout << "You walk outside of the small one room cottage and flinch at the smell around you." << endl;
 	}
 	else if (decision == 2) {
@@ -58,7 +87,7 @@ int main() {
 	cout << "2. Ignore the object and make your way to the nearest city" << endl;
 	cout << "3. Go into the nearby woods" << endl;
 	cin >> decision2;
-	if (decision2 == 2) {
+	system("cls");	if (decision2 == 2) {
 		nearbycity:
 		cout << "You decide to head on to the nearest city of Seamount in search of " << endl;
 		cout << "answers for what is happening around you. On the way you discover a wagon that " << endl;
@@ -68,6 +97,7 @@ int main() {
 		cout << "2. Continue on your way to the city" << endl;
 		int decision2d1;
 		cin >> decision2d1;
+		system("cls");		
 		if (decision2d1 == 1) {
 			cout << "As you feel like it could be possible to abandon the cries for help you just can't " << endl;
 			cout << "bring yourselves to do it.You and the knight look inside of the wagon and see a small farm girl crying " << endl;
@@ -120,6 +150,7 @@ int main() {
 		cout << "2. Go into the nearby woods" << endl;
 		int subdecide;
 		cin >> subdecide;
+		system("cls");
 		if (subdecide == 1) {
 			goto nearbycity;
 		}
@@ -181,6 +212,7 @@ int main() {
 	int decision3;
 	cin >> decision3;
 	cout << endl;
+	system("cls");
 	if (decision3 == 1) {
 		cout << "You eat the mushroom and feel a strange tingle throughout your body.As this feeling goes through" << endl;
 		cout << "your legs you drop to the floor instantly and " << knight.name << " and " << farmgirl.name << " go to help you up." << endl;
@@ -208,16 +240,29 @@ int main() {
 	cout << "1. Eat the slime" << endl;
 	cout << "2. Don't eat the slime." << endl;
 	cin >> decision4;
+	system("cls");
 	if (decision4 == 1) {
 		cout << "Reluctantly you put the slime in your mouth and despite the putrid smell it actually tastes quite good." << endl;
 		cout << "Suddenly you feel a tingle run through your body and you feel as if you have gotten stronger somehow." << endl;
 			maincharacter.powerup = true;
+			cout << endl;
+			cout << "==========================" << endl;
+			cout << maincharacter.name <<" has powered up!!!" << endl;
+			cout << "==========================" << endl;
+			cout << endl;
+
+
 	}
 	else if (decision4 == 2) {
 		cout << "You choose to not eat the slime. Slime motions a somewhat sad face as best it can. The knight feels." << endl;
 		cout << "sorry for the creature and eats the slime off the floor. The knight feels completely find and even goes as" << endl;
 		cout << "far to say that slime tasted delicious";
 			knight.powerup = true;
+			cout << endl;
+			cout << "==========================" << endl;
+			cout << knight.name <<" has powered up!!!" << endl;
+			cout << "==========================" << endl;
+			cout << endl;
 	}
 	else {
 		cout << "That is not a valid entry. Please enter a valid entry";
@@ -230,6 +275,23 @@ int main() {
 	cout << "condition. After examining the outside of the city you and your party head on in and see if they can find anyone in the city." << endl;
 	// insert new code here
 gameover:
-	cout << "Game over.";
+
+	system("Color 04");
+	cout << endl;
+	cout << endl;
+	cout << "**************************************************************************************" << endl;
+	cout << "**************************************************************************************" << endl;
+	cout << "**************************************************************************************" << endl;
+	cout << "**************************************************************************************" << endl;
+	cout << "**************************************************************************************" << endl;
+	cout << "**************************************************************************************" << endl;
+	cout << "**********************************||||Game over...|||*********************************" << endl;
+	cout << "**************************************************************************************" << endl;
+	cout << "**************************************************************************************" << endl;
+	cout << "**************************************************************************************" << endl;
+	cout << "**************************************************************************************" << endl;
+	cout << "**************************************************************************************" << endl;
+	cout << "**************************************************************************************" << endl;
+	
 	return 0;
 }
