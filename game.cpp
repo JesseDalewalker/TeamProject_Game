@@ -42,11 +42,46 @@ void begin() {
 	cout << "               Let us begin your journey...(Press ENTER to continue)" << endl;
 	cin.ignore(); //https://stackoverflow.com/questions/903221/press-enter-to-continue
 }
+char gameOver() {
+	system("Color 04");
+	cout << endl;
+	cout << endl;
+	cout << "**************************************************************************************" << endl;
+	cout << "**************************************************************************************" << endl;
+	cout << "**************************************************************************************" << endl;
+	cout << "**************************************************************************************" << endl;
+	cout << "**************************************************************************************" << endl;
+	cout << "**************************************************************************************" << endl;
+	cout << "**********************************||||Game over...|||*********************************" << endl;
+	cout << "**************************************************************************************" << endl;
+	cout << "**************************************************************************************" << endl;
+	cout << "**************************************************************************************" << endl;
+	cout << "**************************************************************************************" << endl;
+	cout << "**************************************************************************************" << endl;
+	cout << "**************************************************************************************" << endl;
+	cout << endl;
+	cout << "Play again? (Y/N):";
+	playAgain:
+	char answer;
+	cin >> answer;
+	if ((answer == 'Y') || (answer == 'y')) {
+		return answer;
+	}
+	else if ((answer == 'N') || (answer == 'n')) {
+		return answer;
+	}
+	else {
+		cout << "That is an invalid entry, please try again...: ";
+		goto playAgain;
+	}
+	return answer;
 
+}
 int main() {
 	partymembers knight;
 	partymembers farmgirl;
 	partymembers hunter;
+	theBeginning:
 	begin();
 	system("cls");
 	system("Color B0"); //https://www.geeksforgeeks.org/how-to-print-colored-text-in-c/ 
@@ -56,19 +91,21 @@ int main() {
 	partymembers maincharacter;
 	cin >> maincharacter.name;
 	cout << "\"Ah thanks right, my name is " << maincharacter.name << "\"" << endl;
-	system("cls");	cout << maincharacter.name << " awakens in a small cottage in a daze with no recollection of how they got there." << endl;
+	cout << maincharacter.name << " awakens in a small cottage in a daze with no recollection of how they got there." << endl;
 	cout << "Upon a quick glance around the room " << maincharacter.name << " realizes they are alone inside of what seems to be a cottage." << endl;
 
 	decision1:
 	cout << "What will you do?" << endl;
 	cout << "1. Get up and leave the cottage." << endl;
 	cout << "2. Take a closer look at your surroundings." << endl;
-	int decision;
+	char decision;
 	cin >> decision;
-	system("cls");	if (decision == 1) {
+	
+	
+	if (decision == '1') {
 		cout << "You walk outside of the small one room cottage and flinch at the smell around you." << endl;
 	}
-	else if (decision == 2) {
+	else if (decision == '2') {
 		cout << "You look around the room with a closer inspection and notice your room is dirty." << endl;
 		cout << "\"I really should clean this place up\" you think to yourself and you head for the door" << endl;
 	}
@@ -80,14 +117,15 @@ int main() {
 	cout << "Scenery: As you look around you see the buildings destroyed and covered in a foul smelling viscous" << endl;
 	cout << "substance.There is nothing to indicate that people still live here or may still be here." << endl;
 	cout << " You look to the ocean and see something shining into your eyes on the beach." << endl;
-	int decision2;
+	char decision2;
 	decision2:
 	cout << "What will you do?" << endl;
 	cout << "1. Go to the beach and investigate the shining object" << endl;
 	cout << "2. Ignore the object and make your way to the nearest city" << endl;
 	cout << "3. Go into the nearby woods" << endl;
 	cin >> decision2;
-	system("cls");	if (decision2 == 2) {
+	system("cls");	
+	if (decision2 == '2') {
 		nearbycity:
 		cout << "You decide to head on to the nearest city of Seamount in search of " << endl;
 		cout << "answers for what is happening around you. On the way you discover a wagon that " << endl;
@@ -95,10 +133,10 @@ int main() {
 		cout << "What will you do?" << endl;
 		cout << "1. Go to the source of the crying." << endl;
 		cout << "2. Continue on your way to the city" << endl;
-		int decision2d1;
+		char decision2d1;
 		cin >> decision2d1;
 		system("cls");		
-		if (decision2d1 == 1) {
+		if (decision2d1 == '1') {
 			cout << "As you feel like it could be possible to abandon the cries for help you just can't " << endl;
 			cout << "bring yourselves to do it.You and the knight look inside of the wagon and see a small farm girl crying " << endl;
 			cout << "for help inside. The Farm Girl joins your party." << endl;
@@ -108,7 +146,7 @@ int main() {
 			cout << "Ah thats right, her name was " << farmgirl.name << "." << endl;
 			goto afterfarmgirl;
 		}
-		else if (decision2d1 == 2) {
+		else if (decision2d1 == '2') {
 			cout << "You ignore the blatant and loud cries for help and choose to not lose anytime " << endl;
 			cout << "on your endeavor to reach the city." << endl;
 				afterfarmgirl:
@@ -118,7 +156,7 @@ int main() {
 				}
 				else {
 					cout << "The plant-like creature raises his tenticle like arms and crushes you." << endl;
-					cout << "if only there was a knight to save you" << endl;
+					cout << "if only there was a knight to save you..." << endl;
 					goto gameover;
 				}
 				if (farmgirl.exists) {
@@ -135,7 +173,7 @@ int main() {
 		}
 		
 	}
-	else if (decision2 == 1) {
+	else if (decision2 == '1') {
 		knight.exists = true;
 		cout << "You go to the beach to find the shine is actually a set of armor, and someone seems to still " << endl;
 		cout << "be inside of it. \"its dangerous around!\" The knight yells. \"We should stick together!\"" << endl;
@@ -148,13 +186,13 @@ int main() {
 		cout << "What will you do?" << endl;
 		cout << "1. Go to the nearest city" << endl;
 		cout << "2. Go into the nearby woods" << endl;
-		int subdecide;
+		char subdecide;
 		cin >> subdecide;
 		system("cls");
-		if (subdecide == 1) {
+		if (subdecide == '1') {
 			goto nearbycity;
 		}
-		else if (subdecide == 2) {
+		else if (subdecide == '2') {
 			cout << "Something compels you towards the forest. Wandering about into the forest you begin to walk deeper " << endl;
 			cout << "and deeper.Until you realize that you are now lost. You try your hardest to recall the direction you" << endl;
 			cout << "came from but to no avail. After an hour of walking aimlessly you spot someone in the forest and" << endl;
@@ -173,7 +211,7 @@ int main() {
 			goto subsubdecide;
 		}
 	}
-	else if (decision2 == 3) {
+	else if (decision2 == '3') {
 		cout << "You wander around the woods for what seems like hours. You quickly lose your way." << endl;
 		cout << "Suddenly you are attacked by a pack of wolves, you are never heard from again" << endl;
 		goto gameover;
@@ -209,18 +247,18 @@ int main() {
 	cout << "What will you do?" << endl;
 	cout << "1. Eat the mushrooms" << endl;
 	cout << "2. Pass on the mushrooms" << endl;
-	int decision3;
+	char decision3;
 	cin >> decision3;
 	cout << endl;
 	system("cls");
-	if (decision3 == 1) {
+	if (decision3 == '1') {
 		cout << "You eat the mushroom and feel a strange tingle throughout your body.As this feeling goes through" << endl;
 		cout << "your legs you drop to the floor instantly and " << knight.name << " and " << farmgirl.name << " go to help you up." << endl;
 		cout << "You try to stand on your own but to no avail. There is no sensation or feeling in either of your legs." << endl;
 		cout << "Luckily the knight offers to carry you the rest of the way to Seamont." << endl;
 		knight.carrying = true;
 	}
-	else if (decision3 == 2) {
+	else if (decision3 == '2') {
 		cout << "You pass on the mushroom and decide that it is better if the party waits until they arrive in Seamont" << endl;
 		cout << "to search for some kind of nourishment." << endl;
 	}
@@ -234,14 +272,14 @@ int main() {
 	cout << "somehow like it were reading your mind the slime splits a part of itself off. It emotes towards you and its" << endl;
 	cout << "movements read as if it were beckoning you to eat the split piece. Although you are humbled by the offer" << endl;
 	cout << "the goop reeks and is currently on the floor.";
-	int decision4;
+	char decision4;
 	dec4:
 	cout << "What will you do?" << endl;
 	cout << "1. Eat the slime" << endl;
 	cout << "2. Don't eat the slime." << endl;
 	cin >> decision4;
 	system("cls");
-	if (decision4 == 1) {
+	if (decision4 == '1') {
 		cout << "Reluctantly you put the slime in your mouth and despite the putrid smell it actually tastes quite good." << endl;
 		cout << "Suddenly you feel a tingle run through your body and you feel as if you have gotten stronger somehow." << endl;
 			maincharacter.powerup = true;
@@ -253,7 +291,7 @@ int main() {
 
 
 	}
-	else if (decision4 == 2) {
+	else if (decision4 == '2') {
 		cout << "You choose to not eat the slime. Slime motions a somewhat sad face as best it can. The knight feels." << endl;
 		cout << "sorry for the creature and eats the slime off the floor. The knight feels completely find and even goes as" << endl;
 		cout << "far to say that slime tasted delicious";
@@ -276,22 +314,11 @@ int main() {
 	// insert new code here
 gameover:
 
-	system("Color 04");
-	cout << endl;
-	cout << endl;
-	cout << "**************************************************************************************" << endl;
-	cout << "**************************************************************************************" << endl;
-	cout << "**************************************************************************************" << endl;
-	cout << "**************************************************************************************" << endl;
-	cout << "**************************************************************************************" << endl;
-	cout << "**************************************************************************************" << endl;
-	cout << "**********************************||||Game over...|||*********************************" << endl;
-	cout << "**************************************************************************************" << endl;
-	cout << "**************************************************************************************" << endl;
-	cout << "**************************************************************************************" << endl;
-	cout << "**************************************************************************************" << endl;
-	cout << "**************************************************************************************" << endl;
-	cout << "**************************************************************************************" << endl;
+	char choice = gameOver();
+	if ((choice == 'Y') || (choice == 'y')) {
+		begin();
+		goto theBeginning;
+	}
 	
 	return 0;
 }
