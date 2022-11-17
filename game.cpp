@@ -42,6 +42,16 @@ void begin() {
 	cout << "               Let us begin your journey...(Press ENTER to continue)" << endl;
 	cin.ignore(); //https://stackoverflow.com/questions/903221/press-enter-to-continue
 }
+
+void gameWon() {
+	cout << "**************************************************************************************" << endl;
+	cout << endl;
+	cout << "You have successfully completed the game. Thank you for playing!";
+	cout << endl;
+	cout << "**************************************************************************************" << endl;
+
+}
+
 char gameOver() {
 	system("Color 04");
 	cout << endl;
@@ -312,6 +322,8 @@ int main() {
 	cout << "the city. The building and sprawling castle seen from outside of the city walls seem to be in perfect" << endl;
 	cout << "condition. After examining the outside of the city you and your party head on in and see if they can find anyone in the city." << endl;
 	// insert new code here
+	gameWon();
+	goto theBeginning;
 gameover:
 
 	char choice = gameOver();
