@@ -1,7 +1,11 @@
 #include <iostream>
 #include <Windows.h>
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
+
+
 
 class Being {
 public:
@@ -12,11 +16,37 @@ public:
 
 };
 
+
 class partymembers: public Being{
 public:
 	bool carrying = false;
 	bool powerup = false;
+	int exp;
+	int level = 1;
 };
+
+class enemies : public Being {
+public: 
+	string name;
+	string abilities;
+	// int upgradeLevel = partymembers.level;
+	int HP = 10;
+	int MP = 6;
+
+private:
+	int level = 1;
+
+};
+partymembers knight;
+partymembers farmgirl;
+partymembers hunter;
+partymembers maincharacter;
+enemies enemylist[4];
+enemies enemy1;
+enemies enemy2;
+enemies enemy3;
+enemies enemy4;
+enemies enemy5;
 
 void begin() {
 	system("cls");
@@ -49,6 +79,8 @@ void gameWon() {
 	cout << "You have successfully completed the game. Thank you for playing!";
 	cout << endl;
 	cout << "**************************************************************************************" << endl;
+	cout << "Press enter to continue...";
+	cin.ignore();
 
 }
 
@@ -87,30 +119,74 @@ char gameOver() {
 	return answer;
 
 }
+
+
+
+
 int main() {
-	partymembers knight;
-	partymembers farmgirl;
-	partymembers hunter;
-	theBeginning:
+
+	srand((unsigned)time(0)); // unsigned means positive integers only including 0.
+	// Having trouble with syntx issues...
+	enemy1.name = "Wolf";
+	enemy2.name = "Killer-Plant";
+	enemy3.name = "Mr. Bear";
+	enemy4.name = "THE Fungus Amongus";
+	enemy5.name = "Bandit";
+	enemylist[0] = enemy1;
+	enemylist[1] = enemy2;
+	enemylist[2] = enemy3;
+	enemylist[3] = enemy4;
+	enemylist[4] = enemy5;
+
+theBeginning:
 	begin();
 	system("cls");
 	system("Color B0"); //https://www.geeksforgeeks.org/how-to-print-colored-text-in-c/ 
 	cout << "The story begins in the small fishing village near the coast of Nubera." << endl;
 	cout << "You open you eyes and find yourself laying in a bed" << endl;
 	cout << "In your daze, you seek to recall your name." << endl << "What is your name?" << endl;
-	partymembers maincharacter;
+	//partymembers maincharacter;
 	cin >> maincharacter.name;
 	cout << "\"Ah thanks right, my name is " << maincharacter.name << "\"" << endl;
 	cout << maincharacter.name << " awakens in a small cottage in a daze with no recollection of how they got there." << endl;
 	cout << "Upon a quick glance around the room " << maincharacter.name << " realizes they are alone inside of what seems to be a cottage." << endl;
 
-	decision1:
+decision1:
 	cout << "What will you do?" << endl;
 	cout << "1. Get up and leave the cottage." << endl;
 	cout << "2. Take a closer look at your surroundings." << endl;
 	char decision;
 	cin >> decision;
-	
+	/* Trouble figuring out how to embed this in...
+	void randomEncounter() {
+		int encounter = rand() % 2;
+		if (encounter) {
+		repeatCycle:
+			int enemyArrNumber = 1 + rand() % 5;
+			int hitDie = 1 + rand() % 6;
+			int hitDie2 = 1 + rand() % 6;
+			cout << maincharacter.name << " hits " << enemylist[enemyArrNumber].name << " for " << hitDie << " damage" << endl;
+			cout << enemylist[enemyArrNumber].name << " loses " << hitDie << " HP" << endl;
+			enemylist[enemyArrNumber].HP = enemylist[enemyArrNumber].HP - hitDie;
+			if (enemylist[enemyArrNumber].HP <= 0) {
+				cout << "You have defeated, " << enemylist[enemyArrNumber].name << endl;
+				cout << "You earned 50 EXP!" << endl;
+				maincharacter.exp += 50;
+				knight.exp += 50;
+				farmgirl.exp += 50;
+				hunter.exp += 50;
+			}
+			cout << enemylist[enemyArrNumber].name << " hits you for " << hitDie2 << " damage" << endl;
+			maincharacter.HP = maincharacter.HP - hitDie2;
+			if (maincharacter.HP <= 0) {
+				cout << "You have DIED..." << endl;
+				gameOver();
+				exit(0);
+			}
+		}
+		goto repeatCycle;
+	};
+	*/
 	
 	if (decision == '1') {
 		cout << "You walk outside of the small one room cottage and flinch at the smell around you." << endl;
@@ -134,7 +210,7 @@ int main() {
 	cout << "2. Ignore the object and make your way to the nearest city" << endl;
 	cout << "3. Go into the nearby woods" << endl;
 	cin >> decision2;
-	system("cls");	
+
 	if (decision2 == '2') {
 		nearbycity:
 		cout << "You decide to head on to the nearest city of Seamount in search of " << endl;
@@ -298,6 +374,8 @@ int main() {
 			cout << maincharacter.name <<" has powered up!!!" << endl;
 			cout << "==========================" << endl;
 			cout << endl;
+		
+
 
 
 	}
@@ -310,7 +388,7 @@ int main() {
 			cout << "==========================" << endl;
 			cout << knight.name <<" has powered up!!!" << endl;
 			cout << "==========================" << endl;
-			cout << endl;
+		
 	}
 	else {
 		cout << "That is not a valid entry. Please enter a valid entry";
@@ -321,9 +399,9 @@ int main() {
 	cout << "finally arrive. Something is strange though the city gates are open and there isn't much noise coming from" << endl;
 	cout << "the city. The building and sprawling castle seen from outside of the city walls seem to be in perfect" << endl;
 	cout << "condition. After examining the outside of the city you and your party head on in and see if they can find anyone in the city." << endl;
-	// insert new code here
+	// insert new code here -- Last decision goes to gameWon but needs to have some time threshold
 	gameWon();
-	goto theBeginning;
+	exit(0);
 gameover:
 
 	char choice = gameOver();
