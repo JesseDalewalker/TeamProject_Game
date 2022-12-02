@@ -2,15 +2,16 @@
 #include <Windows.h>
 #include <cstdlib>
 #include <ctime>
+#include <iomanip>
 
 using namespace std;
-
-
 
 class Being {
 public:
 	bool exists = false;
 	string name;
+	int max_HP; //Added max Mp and Hp to serve as the base values that enemies and partymembers will return to after either new encounters or rest
+	int max_MP; //So if a party member levels up, their max Hp and MP will change not their current. 
 	int HP;
 	int MP;
 
@@ -19,10 +20,55 @@ public:
 
 class partymembers: public Being{
 public:
+	bool has_abilities = false;
 	bool carrying = false;
 	bool powerup = false;
 	int exp;
+	string type;
+	string ability1 = "None";
+	string ability2 = "None";
+	string ability3 = "None";
+	string ability4 = "None";
 	int level = 1;
+	void level_up() { // Level up method for characters, abilities gained will go into here once a character hits a certain level
+		if (exp > level * 100) {
+			level += 1;
+			cout << name << " leveled up!" << endl;
+			if (type == "knight") {
+				max_HP += (10 * level);
+				max_MP += (2 * level);
+				HP = max_HP;
+				MP = max_MP;
+				if (level == 5) {
+					ability1 = "Taunt"; //Example of ability, in case anyone wasnts to add a couple abilities for certain characters.
+				}
+			}
+			else if (type == "mc") {
+				max_HP += (7 * level);
+				max_HP += (5 * level);
+				HP = max_HP;
+				MP = max_MP;
+			}
+			else if (type == "hunter") {
+				max_HP += (5 * level);
+				max_MP += (10 * level);
+				HP = max_HP;
+				MP = max_MP;
+			}
+			else if (type == "farmer") {
+				max_HP += (5 * level);
+				max_MP += (15 * level);
+				HP = max_HP;
+				MP = max_MP;
+			}
+		}
+	}
+	void condition() {
+		cout << endl << name << endl;
+		cout << "HP:" << HP << "/" << max_HP << endl;
+		cout << "MP:" << MP << "/" << max_MP << endl;
+		cout << "Lvl:" << level << endl;
+	}
 };
 
 class enemies : public Being {
@@ -32,21 +78,50 @@ public:
 	// int upgradeLevel = partymembers.level;
 	int HP = 10;
 	int MP = 6;
+	void update_level(partymembers x) { //For use in the while loop to update the enemies stats from the original list of enemies which could be given default values
+		level = x.level;
+		HP = 10 * level;
+		MP = 6 * level;
+	}
 
 private:
 	int level = 1;
 
 };
+
+class Journey {
+public:
+	int length;
+	int encounters;
+	void reduce() {
+		length -= 100;
+		cout << length << " miles left to go.";
+	}
+	void enemy_defeated(enemies x) {
+		encounters - 1;
+		cout << "You defeated the " << x.name << "!";
+	}
+};
+
 partymembers knight;
 partymembers farmgirl;
 partymembers hunter;
 partymembers maincharacter;
+Journey theEnd;
 enemies enemylist[4];
 enemies enemy1;
 enemies enemy2;
 enemies enemy3;
 enemies enemy4;
 enemies enemy5;
+
+void options() {
+	cout << endl << "What would you like to do: " << endl;
+	cout << "1. Travel" << endl;
+	cout << "2. Rest" << endl;
+	cout << "3. Check on Party" << endl;
+	cout << "4. Quit" << endl;
+}
 
 void begin() {
 	system("cls");
@@ -137,6 +212,18 @@ int main() {
 	enemylist[2] = enemy3;
 	enemylist[3] = enemy4;
 	enemylist[4] = enemy5;
+	maincharacter.type = "mc";
+	knight.type = "knight";
+	hunter.type = "hunter";
+	farmgirl.type = "farmer";
+	maincharacter.max_HP = 15;
+	maincharacter.max_MP = 5;
+	knight.max_HP = 20;
+	knight.max_MP = 5;
+	hunter.max_HP = 10;
+	hunter.max_MP = 10;
+	farmgirl.max_HP = 5;
+	farmgirl.max_MP = 20;
 
 theBeginning:
 	begin();
@@ -289,7 +376,7 @@ decision1:
 			hunter.exists = true;
 			cin >> hunter.name;
 			cout << "You welcome " << hunter.name << " into your party and make your way out of the forest" << endl;
-			cout << "Finally you decide to make your way to the nearest city"<< endl;
+			cout << "Finally you decide to make your way to the nearest city"<< endl; 
 			goto nearbycity;
 		}
 		else {
@@ -400,6 +487,52 @@ decision1:
 	cout << "the city. The building and sprawling castle seen from outside of the city walls seem to be in perfect" << endl;
 	cout << "condition. After examining the outside of the city you and your party head on in and see if they can find anyone in the city." << endl;
 	// insert new code here -- Last decision goes to gameWon but needs to have some time threshold
+	// Beginning of Nick's section of code (feel free to add code to sections where it is needed)
+	theEnd.length = 3000;
+	theEnd.encounters = 0;
+	cout << endl << "================================================================================" << endl;
+	cout << "You made it inside the city but no one is there, but a note tells you to head west." << endl;
+	cout << "Begin your journey to the west to find where everyone has gone." << endl;
+	char journeyChoice;
+	int encounterChance;
+	maincharacter.HP = 15; // All of these values are initialized since I couldn't compile wihtout them, test values but I think its relatiely balanced for scaling up levels. 
+	maincharacter.MP = 5;
+	knight.HP = 20;
+	knight.MP = 5;
+	hunter.HP = 10;
+	hunter.MP = 10;
+	farmgirl.HP = 5;
+	farmgirl.MP = 20;
+	maincharacter.exp = 0;
+	knight.exp = 0;
+	hunter.exp = 0;
+	farmgirl.exp = 0;
+	while (maincharacter.HP > 0) {
+		options();
+		cin >> journeyChoice;
+		if (journeyChoice == '1') {
+			theEnd.reduce();
+			encounterChance = rand() % 10;
+			if (encounterChance > 5) {
+				// start an encounter between the party and an enemy, could use the other encounter fucntion here or try to work it into this option
+				// all options are ok for other group members to add something to, if not I will write out the code for it
+			}
+		}
+		else if (journeyChoice == '2') {
+			// The rest option will allow you to heal either all your health or some of it depening on how long you choose to rest for
+			// Still have to implement this, its ok if someone else would like to please just comment what you did.
+		}
+		else if (journeyChoice == '3') {
+			maincharacter.condition();
+			knight.condition();
+			farmgirl.condition();
+			hunter.condition();
+		}
+		else if (journeyChoice == '4') {
+			goto gameover;
+		}
+	} 
+	//End of Nicks poriton of code (with some functions and class changes at the top)
 	gameWon();
 	exit(0);
 gameover:
