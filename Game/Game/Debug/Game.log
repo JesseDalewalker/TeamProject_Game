@@ -1,15 +1,14 @@
 ﻿  game.cpp
-C:\Users\nickp\source\repos\TeamProject_Game_My_\game.cpp(98,14): warning C4552: '-': result of expression not used
-C:\Users\nickp\source\repos\TeamProject_Game_My_\game.cpp(128,10): warning C4129: '*': unrecognized character escape sequence
-C:\Users\nickp\source\repos\TeamProject_Game_My_\game.cpp(129,10): warning C4129: '*': unrecognized character escape sequence
-C:\Users\nickp\source\repos\TeamProject_Game_My_\game.cpp(130,10): warning C4129: '*': unrecognized character escape sequence
-C:\Users\nickp\source\repos\TeamProject_Game_My_\game.cpp(131,10): warning C4129: '*': unrecognized character escape sequence
-C:\Users\nickp\source\repos\TeamProject_Game_My_\game.cpp(132,10): warning C4129: '*': unrecognized character escape sequence
-C:\Users\nickp\source\repos\TeamProject_Game_My_\game.cpp(133,10): warning C4129: '*': unrecognized character escape sequence
-C:\Users\nickp\source\repos\TeamProject_Game_My_\game.cpp(135,10): warning C4129: '*': unrecognized character escape sequence
-C:\Users\nickp\source\repos\TeamProject_Game_My_\game.cpp(136,10): warning C4129: '*': unrecognized character escape sequence
-C:\Users\nickp\source\repos\TeamProject_Game_My_\game.cpp(137,10): warning C4129: '*': unrecognized character escape sequence
-C:\Users\nickp\source\repos\TeamProject_Game_My_\game.cpp(138,10): warning C4129: '*': unrecognized character escape sequence
-C:\Users\nickp\source\repos\TeamProject_Game_My_\game.cpp(139,10): warning C4129: '*': unrecognized character escape sequence
-C:\Users\nickp\source\repos\TeamProject_Game_My_\game.cpp(140,10): warning C4129: '*': unrecognized character escape sequence
+C:\Users\nickp\source\repos\TeamProject_Game_My_\game.cpp(269,10): warning C4129: '*': unrecognized character escape sequence
+C:\Users\nickp\source\repos\TeamProject_Game_My_\game.cpp(270,10): warning C4129: '*': unrecognized character escape sequence
+C:\Users\nickp\source\repos\TeamProject_Game_My_\game.cpp(271,10): warning C4129: '*': unrecognized character escape sequence
+C:\Users\nickp\source\repos\TeamProject_Game_My_\game.cpp(272,10): warning C4129: '*': unrecognized character escape sequence
+C:\Users\nickp\source\repos\TeamProject_Game_My_\game.cpp(273,10): warning C4129: '*': unrecognized character escape sequence
+C:\Users\nickp\source\repos\TeamProject_Game_My_\game.cpp(274,10): warning C4129: '*': unrecognized character escape sequence
+C:\Users\nickp\source\repos\TeamProject_Game_My_\game.cpp(276,10): warning C4129: '*': unrecognized character escape sequence
+C:\Users\nickp\source\repos\TeamProject_Game_My_\game.cpp(277,10): warning C4129: '*': unrecognized character escape sequence
+C:\Users\nickp\source\repos\TeamProject_Game_My_\game.cpp(278,10): warning C4129: '*': unrecognized character escape sequence
+C:\Users\nickp\source\repos\TeamProject_Game_My_\game.cpp(279,10): warning C4129: '*': unrecognized character escape sequence
+C:\Users\nickp\source\repos\TeamProject_Game_My_\game.cpp(280,10): warning C4129: '*': unrecognized character escape sequence
+C:\Users\nickp\source\repos\TeamProject_Game_My_\game.cpp(281,10): warning C4129: '*': unrecognized character escape sequence
   Game.vcxproj -> C:\Users\nickp\source\repos\TeamProject_Game_My_\Game\Debug\Game.exe
