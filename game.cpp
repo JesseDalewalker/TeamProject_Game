@@ -9,13 +9,12 @@ using namespace std;
 class Being {
 public:
 	bool exists = false;
-	string name;
-	int max_HP; //Added max Mp and Hp to serve as the base values that enemies and partymembers will return to after either new encounters or rest
-	int max_MP; //So if a party member levels up, their max Hp and MP will change not their current. 
-	int HP;
-	int MP;
-	int attackpower;
-
+	string name = "None";
+	int max_HP = 0; //Added max Mp and Hp to serve as the base values that enemies and partymembers will return to after either new encounters or rest
+	int max_MP = 0; //So if a party member levels up, their max Hp and MP will change not their current. 
+	int HP = 0;
+	int MP = 0;
+	int attackpower = 0;
 };
 
 class partymembers : public Being {
@@ -24,7 +23,7 @@ public:
 	bool has_abilities = false;
 	bool carrying = false;
 	bool powerup = false;
-	int exp;
+	int exp = 0;
 	string type;
 	string ability1 = "None";
 	string ability2 = "None";
@@ -42,18 +41,18 @@ public:
 	}
 };
 
-
 class enemies : public Being {
 public:
+	bool marked = false;
 	bool taunted = false;
 	bool slimy = false;
 	bool burning = false;
 	string name;
 	string abilities;
 	// int upgradeLevel = partymembers.level;
-	int HP = 10;
+	int HP = 20;
 	int MP = 20;
-	void update_level(partymembers x) { //For use in the while loop to update the enemies stats from the original list of enemies which could be given default values
+	template<class T> void update_level(T x) { //For use in the while loop to update the enemies stats from the original list of enemies which could be given default values
 		level = x.level;
 		HP = 20 * level;
 		MP = 20 * level;
@@ -63,7 +62,31 @@ private:
 
 };
 
-class Hero : public partymembers {
+class Hunter : public partymembers {
+	void level_up() {
+		if (exp >= (100 * level)) {
+			cout << name << " has leveled up!" << endl;
+			level += 1;
+			max_HP += (5 * level);
+			max_MP += (10 * level);
+			HP = max_HP;
+			MP = max_MP;
+			attackpower = 10 * level;
+		}
+	}
+	void mark(enemies enemy) {
+		if (MP < 5) {
+			cout << name << " doesn't have enough mana for this move!" << endl;
+		}
+		else {
+			MP -= 5;
+			enemy.marked = true;
+			cout << enemy.name << " has been marked! They will take double damage from " << name << endl;
+		}
+	}
+};
+
+class hero : public partymembers {
 public:
 	bool charged_up = false;
 	void level_up() {
@@ -109,7 +132,7 @@ public:
 	}
 };
 
-class Healer : public partymembers {
+class healer : public partymembers {
 public:
 	void level_up() {
 		if (exp >= (level * 100)) {
@@ -136,7 +159,7 @@ public:
 			cout << name << " heals " << target.name << "for " << heal << " health." << endl;
 		}
 	}
-	void group_healing(partymembers target, partymembers target2, partymembers target3) {
+	template<class K, class H, class Hu> void group_healing(K target, H target2, Hu target3) {
 		if (MP <= 0 || MP < 10) {
 			cout << name << " can't perform this ability they dont have enough mana!";
 		}
@@ -184,7 +207,7 @@ public:
 			cout << enemy.name << " has been taunted and can only focus on attacking " << name << "." << endl;
 		}
 	}
-	template<class T> void shield_friend(T buddy, T buddy2, T buddy3) {
+	void shield_friend(hero buddy, healer buddy2, Hunter buddy3) {
 		if (MP <= 0 || MP < 5) {
 			cout << name << " does not have enough mana for this move!" << endl;
 		}
@@ -197,33 +220,17 @@ public:
 			cout << buddy.name << " is shielded and " << name << "will take all incoming damage." << endl;
 		}
 	}
-	void sacrifice(Hero hero) {
+	void sacrifice(hero x) {
 		if (HP < 10) {
 			cout << name << " cant sacrifice they are too low on health!" << endl;
 		}
 		else {
 			HP -= 10;
-			hero.charged_up = true;
-			cout << name << " charges up " << hero.name << "." << endl;
+			x.charged_up = true;
+			cout << name << " charges up " << x.name << "." << endl;
 		}
 	}
 };
-
-
-class Hunter : public partymembers {
-	void level_up() {
-		if (exp >= (100 * level)) {
-			cout << name << " has leveled up!" << endl;
-			level += 1;
-			max_HP += (5 * level);
-			max_MP += (10 * level);
-			HP = max_HP;
-			MP = max_MP;
-			attackpower = 10 * level;
-		}
-	}
-};
-
 
 class Journey {
 public:
@@ -241,7 +248,7 @@ public:
 
 Knight knight;
 Healer farmgirl;
-partymembers hunter;
+Hunter hunter;
 Hero maincharacter;
 Journey theEnd;
 enemies enemylist[5];
