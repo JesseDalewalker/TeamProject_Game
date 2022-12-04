@@ -2,4 +2,7 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/Game/.vs/Game/v16/Browse.VC.opendb
+Game/
+.vs/
+Game/.vs/Game/v16/
+Game/.vs/Game/v16/Browse.VS.db
