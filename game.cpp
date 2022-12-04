@@ -42,6 +42,73 @@ public:
 	}
 };
 
+
+class enemies : public Being {
+public:
+	bool taunted = false;
+	bool slimy = false;
+	bool burning = false;
+	string name;
+	string abilities;
+	// int upgradeLevel = partymembers.level;
+	int HP = 10;
+	int MP = 20;
+	void update_level(partymembers x) { //For use in the while loop to update the enemies stats from the original list of enemies which could be given default values
+		level = x.level;
+		HP = 20 * level;
+		MP = 20 * level;
+	}
+private:
+	int level = 1;
+
+};
+
+class Hero : public partymembers {
+public:
+	bool charged_up = false;
+	void level_up() {
+		if (exp >= (level * 100)) {
+			level += 1;
+			cout << name << " leveled up!" << endl;
+			max_HP += (7 * level);
+			max_HP += (5 * level);
+			HP = max_HP;
+			MP = max_MP;
+			attackpower = 5 * level;
+		}
+	}
+	void big_slash(enemies enemy) {
+		if (MP <= 0 || MP < 5) {
+			cout << name << " does not have enough mana for this move!" << endl;
+		}
+		else {
+			MP -= 5;
+			int x = attackpower * 2;
+			enemy.HP -= x;
+			cout << name << " channels thier strength into a powerful slash! " << enemy.name << " takes " << x << " damage." << endl;
+		}
+	}
+	void slime_toss(enemies enemy) {
+		enemy.HP -= 1;
+		enemy.slimy = true;
+		cout << name << " tosses some slime at the " << enemy.name << "!" << endl;
+	}
+	void fireball(enemies enemy) {
+		if (MP < 20) {
+			cout << name << " does not have enough mana for this move!" << endl;
+		}
+		else {
+			MP -= 20;
+			int attack = attackpower * 10;
+			enemy.HP -= attack;
+			if (enemy.slimy == true) {
+				enemy.burning = true;
+			}
+			cout << name << " launches a fireball dealing " << attack << " damage!" << endl;
+		}
+	}
+};
+
 class Healer : public partymembers {
 public:
 	void level_up() {
@@ -142,51 +209,6 @@ public:
 	}
 };
 
-class Hero : public partymembers {
-public:
-	bool charged_up = false;
-	void level_up() {
-		if (exp >= (level * 100)) {
-			level += 1;
-			cout << name << " leveled up!" << endl;
-			max_HP += (7 * level);
-			max_HP += (5 * level);
-			HP = max_HP;
-			MP = max_MP;
-			attackpower = 5 * level;
-		}
-	}
-	void big_slash(enemies enemy) {
-		if (MP <= 0 || MP < 5) {
-			cout << name << " does not have enough mana for this move!" << endl;
-		}
-		else {
-			MP -= 5;
-			int x = attackpower * 2;
-			enemy.HP -= x;
-			cout << name << " channels thier strength into a powerful slash! " << enemy.name << " takes " << x << " damage." << endl;
-		}
-	}
-	void slime_toss(enemies enemy) {
-		enemy.HP -= 1;
-		enemy.slimy = true;
-		cout << name << " tosses some slime at the " << enemy.name << "!" << endl;
-	}
-	void fireball(enemies enemy) {
-		if (MP < 20) {
-			cout << name << " does not have enough mana for this move!" << endl;
-		}
-		else {
-			MP -= 20;
-			int attack = attackpower * 10;
-			enemy.HP -= attack;
-			if (enemy.slimy == true) {
-				enemy.burning = true;
-			}
-			cout << name << " launches a fireball dealing " << attack << " damage!" << endl;
-		}
-	}
-};
 
 class Hunter : public partymembers {
 	void level_up() {
@@ -202,25 +224,6 @@ class Hunter : public partymembers {
 	}
 };
 
-class enemies : public Being {
-public:
-	bool taunted = false;
-	bool slimy = false;
-	bool burning = false;
-	string name;
-	string abilities;
-	// int upgradeLevel = partymembers.level;
-	int HP = 20;
-	int MP = 20;
-	void update_level(Hero x) { //For use in the while loop to update the enemies stats from the original list of enemies which could be given default values
-		level = x.level;
-		HP = 20 * level;
-		MP = 20 * level;
-	}
-private:
-	int level = 1;
-
-};
 
 class Journey {
 public:
@@ -231,7 +234,7 @@ public:
 		cout << length << " miles left to go.";
 	}
 	void enemy_defeated(enemies x) {
-		encounters - 1;
+		encounters--;
 		cout << "You defeated the " << x.name << "!";
 	}
 };
@@ -329,6 +332,41 @@ playAgain:
 
 }
 
+int randomEncounter() {
+	int encounter = rand() % 2;
+	if (encounter) {
+
+		int enemyArrNumber = 1 + rand() % 5;
+	repeatCycle:
+		int hitDie = 1 + rand() % 6;
+		int hitDie2 = 1 + rand() % 6;
+		cout << maincharacter.name << " hits " << enemylist[enemyArrNumber].name << " for " << hitDie << " damage" << endl;
+		cout << enemylist[enemyArrNumber].name << " loses " << hitDie << " HP" << endl;
+		
+		enemylist[enemyArrNumber].HP = enemylist[enemyArrNumber].HP - hitDie;
+		if (enemylist[enemyArrNumber].HP <= 0) {
+			cout << "You have defeated, " << enemylist[enemyArrNumber].name << endl;
+			cout << "You earned 50 EXP!" << endl;
+			maincharacter.exp += 50;
+			knight.exp += 50;
+			farmgirl.exp += 50;
+			hunter.exp += 50;
+			goto endbattle;
+		}
+		cout << enemylist[enemyArrNumber].name << " hits you for " << hitDie2 << " damage" << endl;
+		maincharacter.HP = maincharacter.HP - hitDie2;
+		if (maincharacter.HP <= 0) {
+			cout << "You have DIED..." << endl;
+			gameOver();
+			exit(0);
+		}
+		goto repeatCycle;
+	}
+
+endbattle:
+	return 0;
+};
+
 int main() {
 
 	srand((unsigned)time(0)); // unsigned means positive integers only including 0.
@@ -371,37 +409,7 @@ decision1:
 	cout << "2. Take a closer look at your surroundings." << endl;
 	char decision;
 	cin >> decision;
-	/* Trouble figuring out how to embed this in...
-	void randomEncounter() {
-		int encounter = rand() % 2;
-		if (encounter) {
-		repeatCycle:
-			int enemyArrNumber = 1 + rand() % 5;
-			int hitDie = 1 + rand() % 6;
-			int hitDie2 = 1 + rand() % 6;
-			cout << maincharacter.name << " hits " << enemylist[enemyArrNumber].name << " for " << hitDie << " damage" << endl;
-			cout << enemylist[enemyArrNumber].name << " loses " << hitDie << " HP" << endl;
-			enemylist[enemyArrNumber].HP = enemylist[enemyArrNumber].HP - hitDie;
-			if (enemylist[enemyArrNumber].HP <= 0) {
-				cout << "You have defeated, " << enemylist[enemyArrNumber].name << endl;
-				cout << "You earned 50 EXP!" << endl;
-				maincharacter.exp += 50;
-				knight.exp += 50;
-				farmgirl.exp += 50;
-				hunter.exp += 50;
-			}
-			cout << enemylist[enemyArrNumber].name << " hits you for " << hitDie2 << " damage" << endl;
-			maincharacter.HP = maincharacter.HP - hitDie2;
-			if (maincharacter.HP <= 0) {
-				cout << "You have DIED..." << endl;
-				gameOver();
-				exit(0);
-			}
-		}
-		goto repeatCycle;
-	};
-	*/
-
+	
 	if (decision == '1') {
 		cout << "You walk outside of the small one room cottage and flinch at the smell around you." << endl;
 	}
@@ -644,11 +652,12 @@ dec4:
 		cin >> journeyChoice;
 		if (journeyChoice == '1') {
 			theEnd.reduce();
-			encounterChance = rand() % 10;
-			if (encounterChance > 5) {
+			randomEncounter();
+	//		encounterChance = rand() % 10;
+		//	if (encounterChance > 5) {
 				// start an encounter between the party and an enemy, could use the other encounter fucntion here or try to work it into this option
 				// all options are ok for other group members to add something to, if not I will write out the code for it
-			}
+		//	}
 		}
 		else if (journeyChoice == '2') {
 			cout << endl << "The party takes time to rest and refresh." << endl;
