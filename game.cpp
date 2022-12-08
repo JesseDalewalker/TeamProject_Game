@@ -9,12 +9,12 @@ using namespace std;
 class Being {
 public:
 	bool exists = false;
-	string name;
-	int max_HP; //Added max Mp and Hp to serve as the base values that enemies and partymembers will return to after either new encounters or rest
-	int max_MP; //So if a party member levels up, their max Hp and MP will change not their current. 
-	int HP;
-	int MP;
-	int attackpower;
+	string name = "None";
+	int max_HP = 0; //Added max Mp and Hp to serve as the base values that enemies and partymembers will return to after either new encounters or rest
+	int max_MP = 0; //So if a party member levels up, their max Hp and MP will change not their current. 
+	int HP = 0;
+	int MP = 0;
+	int attackpower = 0;
 
 };
 
@@ -24,7 +24,7 @@ public:
 	bool has_abilities = false;
 	bool carrying = false;
 	bool powerup = false;
-	int exp;
+	int exp = 0;
 	string type;
 	string ability1 = "None";
 	string ability2 = "None";
@@ -39,12 +39,26 @@ public:
 		cout << "HP:" << HP << "/" << max_HP << endl;
 		cout << "MP:" << MP << "/" << max_MP << endl;
 		cout << "Lvl:" << level << endl;
+		cout << "EXP:" << exp << endl;
+		if (carrying) {
+			cout << "You are burdened from carrying, attack power decreased by 2" << endl;
+		}
+		if (powerup) {
+			cout << "You are currently powered up, attack power is multiplied 2x" << endl;
+		}
+		if (shielded) {
+			cout << "You are currently shielded with a protective force giving a +2 to your health" << endl;
+		}
+		if (has_abilities) {
+			cout << "Abilities: " << ability1 << ',' << ability2 << ',' << ability3 << endl;
+		}
 	}
 };
 
 
 class enemies : public Being {
 public:
+	bool marked = false;
 	bool taunted = false;
 	bool slimy = false;
 	bool burning = false;
@@ -53,7 +67,7 @@ public:
 	// int upgradeLevel = partymembers.level;
 	int HP = 10;
 	int MP = 20;
-	void update_level(partymembers x) { //For use in the while loop to update the enemies stats from the original list of enemies which could be given default values
+	template<class T> void update_level(T x) { //For use in the while loop to update the enemies stats from the original list of enemies which could be given default values
 		level = x.level;
 		HP = 20 * level;
 		MP = 20 * level;
@@ -61,6 +75,31 @@ public:
 private:
 	int level = 1;
 
+};
+
+class Hunter : public partymembers {
+public:
+	void level_up() {
+		if (exp >= (100 * level)) {
+			cout << name << " has leveled up!" << endl;
+			level += 1;
+			max_HP += (5 * level);
+			max_MP += (10 * level);
+			HP = max_HP;
+			MP = max_MP;
+			attackpower = 10 * level;
+		}
+	}
+	void mark(enemies enemy) {
+		if (MP < 5) {
+			cout << name << " doesn't have enough mana for this move!" << endl;
+		}
+		else {
+			MP -= 5;
+			enemy.marked = true;
+			cout << enemy.name << " has been marked! They will take double damage from " << name << endl;
+		}
+	}
 };
 
 class Hero : public partymembers {
@@ -85,7 +124,7 @@ public:
 			MP -= 5;
 			int x = attackpower * 2;
 			enemy.HP -= x;
-			cout << name << " channels thier strength into a powerful slash! " << enemy.name << " takes " << x << " damage." << endl;
+			cout << name << " channels their strength into a powerful slash! " << enemy.name << " takes " << x << " damage." << endl;
 		}
 	}
 	void slime_toss(enemies enemy) {
@@ -101,7 +140,7 @@ public:
 			MP -= 20;
 			int attack = attackpower * 10;
 			enemy.HP -= attack;
-			if (enemy.slimy == true) {
+			if (enemy.slimy) {
 				enemy.burning = true;
 			}
 			cout << name << " launches a fireball dealing " << attack << " damage!" << endl;
@@ -136,7 +175,7 @@ public:
 			cout << name << " heals " << target.name << "for " << heal << " health." << endl;
 		}
 	}
-	void group_healing(partymembers target, partymembers target2, partymembers target3) {
+	template<class K, class H, class Hu> void group_healing(K target, H target2, Hu target3) {
 		if (MP <= 0 || MP < 10) {
 			cout << name << " can't perform this ability they dont have enough mana!";
 		}
@@ -184,7 +223,7 @@ public:
 			cout << enemy.name << " has been taunted and can only focus on attacking " << name << "." << endl;
 		}
 	}
-	template<class T> void shield_friend(T buddy, T buddy2, T buddy3) {
+	void shield_friend(Hero buddy, Healer buddy2, Hunter buddy3) {
 		if (MP <= 0 || MP < 5) {
 			cout << name << " does not have enough mana for this move!" << endl;
 		}
@@ -197,33 +236,17 @@ public:
 			cout << buddy.name << " is shielded and " << name << "will take all incoming damage." << endl;
 		}
 	}
-	void sacrifice(Hero hero) {
+	void sacrifice(Hero x) {
 		if (HP < 10) {
 			cout << name << " cant sacrifice they are too low on health!" << endl;
 		}
 		else {
 			HP -= 10;
-			hero.charged_up = true;
-			cout << name << " charges up " << hero.name << "." << endl;
+			x.charged_up = true;
+			cout << name << " charges up " << x.name << "." << endl;
 		}
 	}
 };
-
-
-class Hunter : public partymembers {
-	void level_up() {
-		if (exp >= (100 * level)) {
-			cout << name << " has leveled up!" << endl;
-			level += 1;
-			max_HP += (5 * level);
-			max_MP += (10 * level);
-			HP = max_HP;
-			MP = max_MP;
-			attackpower = 10 * level;
-		}
-	}
-};
-
 
 class Journey {
 public:
@@ -232,6 +255,10 @@ public:
 	void reduce() {
 		length -= 100;
 		cout << length << " miles left to go.";
+		if (length <= 0) {
+			cout << "You have reached your destination" << endl;
+			gameWon();
+		}
 	}
 	void enemy_defeated(enemies x) {
 		encounters--;
@@ -241,8 +268,8 @@ public:
 
 Knight knight;
 Healer farmgirl;
-partymembers hunter;
 Hero maincharacter;
+Hunter hunter;
 Journey theEnd;
 enemies enemylist[5];
 enemies enemy1;
@@ -250,6 +277,7 @@ enemies enemy2;
 enemies enemy3;
 enemies enemy4;
 enemies enemy5;
+enemies enemy6;
 Healer heal;
 
 void options() {
@@ -338,8 +366,8 @@ int randomEncounter() {
 
 		int enemyArrNumber = 1 + rand() % 5;
 	repeatCycle:
-		int hitDie = 1 + rand() % 6;
-		int hitDie2 = 1 + rand() % 6;
+		int hitDie = (1 + rand() % 6) + maincharacter.attackpower;
+		int hitDie2 = (1 + rand() % 6);
 		cout << maincharacter.name << " hits " << enemylist[enemyArrNumber].name << " for " << hitDie << " damage" << endl;
 		cout << enemylist[enemyArrNumber].name << " loses " << hitDie << " HP" << endl;
 		
@@ -351,6 +379,11 @@ int randomEncounter() {
 			knight.exp += 50;
 			farmgirl.exp += 50;
 			hunter.exp += 50;
+			maincharacter.level_up();
+			knight.level_up();
+			farmgirl.level_up();
+			hunter.level_up();
+			
 			goto endbattle;
 		}
 		cout << enemylist[enemyArrNumber].name << " hits you for " << hitDie2 << " damage" << endl;
@@ -370,17 +403,19 @@ endbattle:
 int main() {
 
 	srand((unsigned)time(0)); // unsigned means positive integers only including 0.
-	// Having trouble with syntx issues...
+	
 	enemy1.name = "Wolf";
 	enemy2.name = "Killer-Plant";
 	enemy3.name = "Mr. Bear";
 	enemy4.name = "THE Fungus Amongus";
 	enemy5.name = "Bandit";
+	enemy6.name = "Mrs. Burble";
 	enemylist[0] = enemy1;
 	enemylist[1] = enemy2;
 	enemylist[2] = enemy3;
 	enemylist[3] = enemy4;
 	enemylist[4] = enemy5;
+	enemylist[5] = enemy6;
 	maincharacter.max_HP = 15;
 	maincharacter.max_MP = 5;
 	knight.max_HP = 20;
@@ -566,6 +601,7 @@ decide3:
 		cout << "You try to stand on your own but to no avail. There is no sensation or feeling in either of your legs." << endl;
 		cout << "Luckily the knight offers to carry you the rest of the way to Seamont." << endl;
 		knight.carrying = true;
+		knight.attackpower -= 2;
 	}
 	else if (decision3 == '2') {
 		cout << "You pass on the mushroom and decide that it is better if the party waits until they arrive in Seamont" << endl;
@@ -592,6 +628,7 @@ dec4:
 		cout << "Reluctantly you put the slime in your mouth and despite the putrid smell it actually tastes quite good." << endl;
 		cout << "Suddenly you feel a tingle run through your body and you feel as if you have gotten stronger somehow." << endl;
 		maincharacter.powerup = true;
+		maincharacter.attackpower *= 2;
 		cout << endl;
 		cout << "==========================" << endl;
 		cout << maincharacter.name << " has powered up!!!" << endl;
@@ -607,6 +644,7 @@ dec4:
 		cout << "sorry for the creature and eats the slime off the floor. The knight feels completely find and even goes as" << endl;
 		cout << "far to say that slime tasted delicious";
 		knight.powerup = true;
+		knight.attackpower *= 2;
 		cout << endl;
 		cout << "==========================" << endl;
 		cout << knight.name << " has powered up!!!" << endl;
@@ -647,6 +685,7 @@ dec4:
 	knight.exp = 0;
 	hunter.exp = 0;
 	farmgirl.exp = 0;
+	
 	while (maincharacter.HP > 0) {
 		options();
 		cin >> journeyChoice;
