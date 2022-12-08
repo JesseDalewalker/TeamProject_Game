@@ -257,7 +257,6 @@ public:
 		cout << length << " miles left to go.";
 		if (length <= 0) {
 			cout << "You have reached your destination" << endl;
-			gameWon();
 		}
 	}
 	void enemy_defeated(enemies x) {
@@ -364,7 +363,9 @@ int randomEncounter() {
 	int encounter = rand() % 2;
 	if (encounter) {
 
-		int enemyArrNumber = 1 + rand() % 5;
+		int enemyArrNumber = rand() % 4;
+
+		enemylist[enemyArrNumber].update_level(maincharacter);
 	repeatCycle:
 		int hitDie = (1 + rand() % 6) + maincharacter.attackpower;
 		int hitDie2 = (1 + rand() % 6);
@@ -387,7 +388,7 @@ int randomEncounter() {
 			goto endbattle;
 		}
 		cout << enemylist[enemyArrNumber].name << " hits you for " << hitDie2 << " damage" << endl;
-		maincharacter.HP = maincharacter.HP - hitDie2;
+		maincharacter.HP = (maincharacter.HP - hitDie2);
 		if (maincharacter.HP <= 0) {
 			cout << "You have DIED..." << endl;
 			gameOver();
@@ -409,13 +410,11 @@ int main() {
 	enemy3.name = "Mr. Bear";
 	enemy4.name = "THE Fungus Amongus";
 	enemy5.name = "Bandit";
-	enemy6.name = "Mrs. Burble";
 	enemylist[0] = enemy1;
 	enemylist[1] = enemy2;
 	enemylist[2] = enemy3;
 	enemylist[3] = enemy4;
 	enemylist[4] = enemy5;
-	enemylist[5] = enemy6;
 	maincharacter.max_HP = 15;
 	maincharacter.max_MP = 5;
 	knight.max_HP = 20;
@@ -668,7 +667,7 @@ dec4:
 	cout << "You made it inside the city but no one is there, but a note tells you to head west." << endl;
 	cout << "Begin your journey to the west to find where everyone has gone." << endl;
 	char journeyChoice;
-	int encounterChance;
+	//int encounterChance;
 	maincharacter.HP = 15; // All of these values are initialized since I couldn't compile wihtout them, test values but I think its relatiely balanced for scaling up levels. 
 	maincharacter.MP = 5;
 	maincharacter.attackpower = 5;
@@ -691,6 +690,9 @@ dec4:
 		cin >> journeyChoice;
 		if (journeyChoice == '1') {
 			theEnd.reduce();
+			if (theEnd.length <= 0) {
+				goto gamewon;
+			}
 			randomEncounter();
 	//		encounterChance = rand() % 10;
 		//	if (encounterChance > 5) {
@@ -715,6 +717,7 @@ dec4:
 			goto gameover;
 		}
 	}
+	gamewon:
 	//End of Nicks poriton of code (with some functions and class changes at the top)
 	gameWon();
 	exit(0);
