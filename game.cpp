@@ -794,14 +794,16 @@ enemies bandit_leader;
 enemies bandit_one;
 enemies bandit_two;
 
+/*
 void banditBattle() {
 	bandit_leader.update_level(maincharacter);
 	bandit_one.update_level(maincharacter);
 	bandit_two.update_level(maincharacter);
 
 
-}
 
+}
+*/
 int main() {
 
 	srand((unsigned)time(0)); // unsigned means positive integers only including 0.
@@ -1149,9 +1151,15 @@ dec4:
 				cout << "you a lesson in talking with strangers.\" The bandit leader motions for the rest of his crew and they all " << endl;
 				cout << "draw out there weapons. " << knight.name << " sighs, \"Let's get this over with.\"" << endl;
 				// Bandit battle function
-				banditBattle();
+				//banditBattle();
 				// Continue Story
-				cout << "The lead bandit motions the rest of his crew to run away, \"THIS ISN'T OVER!\" as he yells whilee scrambling. " << endl;
+				cout << endl;
+				cout << endl;
+				cout << knight.name << "takes out the sword as it reflects from the sun and holds it ready to attack. The bandit leader " << endl;
+				cout << "seeing this goes white with fear, \"Your.... your Sir " << knight.name << "! Come on fellas, we are no match for " << endl;
+				cout << "him!\" " << knight.name << " puts the sword away, \"Looks like my name has a reputation.\" chuckling as he sees " << endl;
+				cout << "the lead bandit motions the rest of his crew to run away, \"You won't have him to protect you forever,\" as he yells, " << endl;
+				cout << "\"THIS ISN'T OVER!\" while scrambling away. " << endl;
 				cout << hunter.name << " looks at them running away, \"YOU ARE THE PREY NOW!\" laughing and turn to the family duo, " << endl;
 				cout << "\"Are you alright?\" " << hunter.name << " looking at the man, and then sees the boy and kneels down. The man " << endl;
 				cout << "begins to speak, but the boy spouts, \"That was AWESOME!\" " << maincharacter.name << " walks forward showing " << endl;
