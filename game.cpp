@@ -24,6 +24,7 @@ public:
 	bool has_abilities = false;
 	bool carrying = false;
 	bool powerup = false;
+	
 	int exp = 0;
 	string type;
 	string ability1 = "None";
@@ -40,7 +41,7 @@ public:
 		cout << name << ", Would you like to use an ability? (Y/N): ";
 		cin >> useAbility;
 		if (useAbility == 'Y' || useAbility == 'y') {
-			cout << "Which ability would you like to use? (Enter 1, 2, or 3): " << endl;
+			cout << "Which ability would you like to use?: " << endl;
 			if (ability2 != "None") {
 				cout << "1. " << ability1 << endl;
 				cout << "2. " << ability2 << endl;
@@ -56,7 +57,7 @@ public:
 			}
 			else
 			{
-				cout << "1. " << ability1;
+				cout << "1. " << ability1 << endl;
 				cin >> abilitySelection;
 				return abilitySelection;
 			}
@@ -160,7 +161,7 @@ public:
 		else {
 			MP -= 5;
 			enemy.marked = true;
-			cout << enemy.name << " has been marked! They will take double damage from " << name << endl;
+			cout << enemy.name << " has been marked! They will take double damage" << endl;
 		}
 	}
 	void scan(enemies enemy) {
@@ -172,15 +173,16 @@ public:
 			enemy.condition_enemyscan();
 		}
 	}
-	void rapidshot(enemies enemy) {
+	int rapidshot(enemies enemy) {
 		if (MP < 10) {
 			cout << name << " doesn't have enough mana for this move!" << endl;
+			return 0;
 		}
 		else {
 			MP -= 10;
 			int hunterhitdie = (1 + rand() % 4) + (1 + rand() % 4) + attackpower;
 			cout << name << " has hit " << enemy.name << " twice in rapid succession dealing " << hunterhitdie << " damage." << endl;
-			enemy.HP -= hunterhitdie;
+			return hunterhitdie;
 		}
 	}
 };
@@ -191,11 +193,11 @@ class Hero : public partymembers {
 public:
 	bool charged_up = false;
 	void level_up() {
-		if (exp >= (level * 100)) {
+		if (exp >= (100 * level)) {
 			level += 1;
 			cout << name << " leveled up!" << endl;
 			max_HP += (7 * level);
-			max_HP += (5 * level);
+			max_MP += (5 * level);
 			HP = max_HP;
 			MP = max_MP;
 			attackpower = 5 * level;
@@ -213,35 +215,41 @@ public:
 			}
 		}
 	}
-	void big_slash(enemies enemy) {
+	int big_slash(enemies enemy) {
+		int x = attackpower;
 		if (MP <= 0 || MP < 5) {
 			cout << name << " does not have enough mana for this move!" << endl;
 		}
 		else {
 			MP -= 5;
-			int x = attackpower * 2;
-			enemy.HP -= x;
+			int x = (attackpower * 2);
+			
 			cout << name << " channels their strength into a powerful slash! " << enemy.name << " takes " << x << " damage." << endl;
 		}
+		return x;
 	}
-	void slime_toss(enemies enemy) {
-		enemy.HP -= 1;
+	int slime_toss(enemies enemy) {
+		int x = (enemy.HP -= 1);
 		enemy.slimy = true;
 		cout << name << " tosses some slime at the " << enemy.name << "!" << endl;
+		return x;
 	}
-	void fireball(enemies enemy) {
+	int fireball(enemies enemy) {
+		int attack = attackpower;
+		int x;
 		if (MP < 20) {
 			cout << name << " does not have enough mana for this move!" << endl;
 		}
 		else {
 			MP -= 20;
 			int attack = attackpower * 10;
-			enemy.HP -= attack;
+			
 			if (enemy.slimy) {
 				enemy.burning = true;
 			}
 			cout << name << " launches a fireball dealing " << attack << " damage!" << endl;
 		}
+		return attack;
 	}
 };
 
@@ -283,7 +291,7 @@ public:
 			if (target.HP > target.max_HP) {
 				target.HP = target.max_HP;
 			}
-			cout << name << " heals " << target.name << "for " << heal << " health." << endl;
+			cout << name << " heals " << target.name << " for " << heal << " health." << endl;
 		}
 	}
 	template<class S, class K, class H, class Hu> void group_healing(S self, K target, H target2, Hu target3) {
@@ -297,7 +305,7 @@ public:
 			target.HP += heal;
 			target2.HP += heal;
 			target3.HP += heal;
-			cout << name << " healed everyone for " << heal << "health." << endl;
+			cout << name << " healed everyone for " << heal << " health." << endl;
 		}
 	}
 	template<class T> void revive(T target) {
@@ -362,7 +370,7 @@ public:
 
 			MP -= 5;
 			peer.shielded = true;
-			cout << peer.name << " is shielded and " << name << "will take all incoming damage." << endl;
+			cout << peer.name << " is shielded and HP is temporarily boosted." << endl;
 		}
 	}
 	void sacrifice(Hero x) {
@@ -499,16 +507,17 @@ int randomEncounter() {
 		// maincharacter - with abilities
 		if (maincharacter.has_abilities) {
 			char choice = maincharacter.actions();
+			cout << endl;
 			if (choice == '1') {
-				maincharacter.big_slash(enemylist[enemyArrNumber]);
+				enemylist[enemyArrNumber].HP = maincharacter.big_slash(enemylist[enemyArrNumber]);
 				goto enemyattacksmain;
 			}
 			if (choice == '2') {
-				maincharacter.slime_toss(enemylist[enemyArrNumber]);
+				enemylist[enemyArrNumber].HP = maincharacter.slime_toss(enemylist[enemyArrNumber]);
 				goto enemyattacksmain;
 			}
 			if (choice == '3') {
-				maincharacter.fireball(enemylist[enemyArrNumber]);
+				enemylist[enemyArrNumber].HP = maincharacter.fireball(enemylist[enemyArrNumber]);
 				goto enemyattacksmain;
 			}
 		}
@@ -535,8 +544,14 @@ int randomEncounter() {
 		}
 
 		//enemy attacks main character and checks health on main character
-		cout << enemylist[enemyArrNumber].name << " hits you for " << enemyhitDieM << " damage" << endl;
-		maincharacter.HP = (maincharacter.HP - enemyhitDieM);
+		if (enemylist[enemyArrNumber].taunted) {
+			cout << enemylist[enemyArrNumber].name << " hits " << knight.name << " for " << enemyhitDieM << " damage" << endl;
+			knight.HP = (knight.HP - enemyhitDieM);
+		}
+		else {
+			cout << enemylist[enemyArrNumber].name << " hits " << maincharacter.name << " for " << enemyhitDieM << " damage" << endl;
+			maincharacter.HP = (maincharacter.HP - enemyhitDieM);
+		}
 		if (maincharacter.HP <= 0) {
 			cout << "You have DIED..." << endl;
 			gameOver();
@@ -549,6 +564,7 @@ int randomEncounter() {
 		}
 		if (knight.has_abilities) {
 			char choice1 = knight.actions();
+			cout << endl;
 			if (choice1 == '1') {
 				char shieldme;
 				cout << "Who do you want to shield?" << endl;
@@ -591,7 +607,8 @@ int randomEncounter() {
 			cout << "You earned 50 EXP!" << endl;
 			maincharacter.exp += 50;
 			knight.exp += 50;
-
+			farmgirl.exp += 50;
+			hunter.exp += 50;
 			maincharacter.level_up();
 			knight.level_up();
 			farmgirl.level_up();
@@ -614,6 +631,7 @@ int randomEncounter() {
 	farmgirl2:
 		if (farmgirl.has_abilities) {
 			char choice2 = farmgirl.actions();
+			cout << endl;
 			if (choice2 == '1') {
 			choiceheal:
 				char healme;
@@ -639,11 +657,11 @@ int randomEncounter() {
 					farmgirl.healing(hunter);
 					goto enemyattacksfarmgirl;
 				}
-				if ((healme != '1') || (healme != '2') || (healme != '3') || (healme != '4')) {
-					cout << "Incorrect selection, try again" << endl;
-					goto choiceheal;
-				}
+				cout << "Incorrect selection, try again" << endl;
+				goto choiceheal;
 			}
+
+			
 			if (choice2 == '2') {
 				farmgirl.group_healing(maincharacter, knight, hunter, farmgirl);
 				goto enemyattacksfarmgirl;
@@ -684,7 +702,7 @@ int randomEncounter() {
 			maincharacter.exp += 50;
 			knight.exp += 50;
 			farmgirl.exp += 50;
-
+			hunter.exp += 50;
 			maincharacter.level_up();
 			knight.level_up();
 			farmgirl.level_up();
@@ -694,8 +712,15 @@ int randomEncounter() {
 		}
 
 		//farmgirl attacked
-		cout << enemylist[enemyArrNumber].name << " hits you for " << enemyhitDieF << " damage" << endl;
-		farmgirl.HP = (farmgirl.HP - enemyhitDieF);
+		if (enemylist[enemyArrNumber].taunted) {
+			cout << enemylist[enemyArrNumber].name << " hits " << knight.name << " for " << enemyhitDieF << " damage" << endl;
+			knight.HP = (knight.HP - enemyhitDieM);
+		}
+		else {
+			cout << enemylist[enemyArrNumber].name << " hits " << farmgirl.name << " for " << enemyhitDieF << " damage" << endl;
+			farmgirl.HP = (farmgirl.HP - enemyhitDieF);
+		}
+
 		if (farmgirl.HP <= 0) {
 			cout << "You have DIED..." << endl;
 		}
@@ -707,6 +732,7 @@ int randomEncounter() {
 		if (hunter.has_abilities) {
 			char choice3;
 			choice3 = hunter.actions();
+			cout << endl;
 			if (choice3 == '1') {
 				hunter.mark(enemylist[enemyArrNumber]);
 				goto enemyattackshunter;
@@ -716,11 +742,14 @@ int randomEncounter() {
 				goto enemyattackshunter;
 			}
 			if (choice3 == '3') {
-				hunter.rapidshot(enemylist[enemyArrNumber]);
+				enemylist[enemyArrNumber].HP -= hunter.rapidshot(enemylist[enemyArrNumber]);
 				goto enemyattackshunter;
 			}
 		}
 		// Hunter auto-attacks
+		if (enemylist[enemyArrNumber].marked) {
+			hitDieH *= 2;
+		}
 		cout << hunter.name << " hits " << enemylist[enemyArrNumber].name << " for " << hitDieH << " damage" << endl;
 		cout << enemylist[enemyArrNumber].name << " loses " << hitDieH << " HP" << endl;
 		enemylist[enemyArrNumber].HP = enemylist[enemyArrNumber].HP - hitDieH;
@@ -741,8 +770,15 @@ int randomEncounter() {
 		}
 
 		//enemy attacks hunter
-		cout << enemylist[enemyArrNumber].name << " hits you for " << enemyhitDieH << " damage" << endl;
-		hunter.HP = (hunter.HP - enemyhitDieH);
+		if (enemylist[enemyArrNumber].taunted) {
+			cout << enemylist[enemyArrNumber].name << " hits " << knight.name << " for " << enemyhitDieH << " damage" << endl;
+			knight.HP = (knight.HP - enemyhitDieM);
+		}
+		else {
+			cout << enemylist[enemyArrNumber].name << " hits " << hunter.name << " for " << enemyhitDieH << " damage" << endl;
+			hunter.HP = (hunter.HP - enemyhitDieH);
+		}
+
 		if (hunter.HP <= 0) {
 			cout << "You have DIED..." << endl;
 		}
@@ -961,7 +997,7 @@ decide3:
 		cout << "You try to stand on your own but to no avail. There is no sensation or feeling in either of your legs." << endl;
 		cout << "Luckily the knight offers to carry you the rest of the way to Seamont." << endl;
 		knight.carrying = true;
-		knight.attackpower -= 2;
+		knight.attackpower /= 2;
 	}
 	else if (decision3 == '2') {
 		cout << "You pass on the mushroom and decide that it is better if the party waits until they arrive in Seamont" << endl;
