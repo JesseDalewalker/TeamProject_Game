@@ -42,18 +42,19 @@ public:
 		cin >> useAbility;
 		if (useAbility == 'Y' || useAbility == 'y') {
 			cout << "Which ability would you like to use?: " << endl;
+			if (ability3 != "None") {
+				cout << "1. " << ability1 << endl;
+				cout << "2. " << ability2 << endl;
+				cout << "3. " << ability3 << endl;
+				cin >> abilitySelection;
+				return abilitySelection;
+			}
 			if (ability2 != "None") {
 				cout << "1. " << ability1 << endl;
 				cout << "2. " << ability2 << endl;
 				cin >> abilitySelection;
 				return abilitySelection;
-				if (ability3 != "None") {
-					cout << "1. " << ability1 << endl;
-					cout << "2. " << ability2 << endl;
-					cout << "3. " << ability3 << endl;
-					cin >> abilitySelection;
-					return abilitySelection;
-				}
+				
 			}
 			else
 			{
@@ -441,9 +442,10 @@ void begin() {
 }
 
 void gameWon() {
+	system("Color F5");
 	cout << "**************************************************************************************" << endl;
 	cout << endl;
-	cout << "You have successfully completed the game. Thank you for playing!";
+	cout << "You have successfully completed the demo for this game. Thank you for playing!";
 	cout << endl;
 	cout << "**************************************************************************************" << endl;
 	cout << "Press enter to continue...";
@@ -788,6 +790,18 @@ endbattle:
 	return 0;
 };
 
+enemies bandit_leader;
+enemies bandit_one;
+enemies bandit_two;
+
+void banditBattle() {
+	bandit_leader.update_level(maincharacter);
+	bandit_one.update_level(maincharacter);
+	bandit_two.update_level(maincharacter);
+
+
+}
+
 int main() {
 
 	srand((unsigned)time(0)); // unsigned means positive integers only including 0.
@@ -797,6 +811,7 @@ int main() {
 	enemy3.name = "Mr. Bear";
 	enemy4.name = "THE Fungus Amongus";
 	enemy5.name = "Bandit";
+	bandit_leader.name = "Smelly Bandit Leader";
 	enemylist[0] = enemy1;
 	enemylist[1] = enemy2;
 	enemylist[2] = enemy3;
@@ -820,6 +835,13 @@ int main() {
 	enemy4.max_MP = 10;
 	enemy5.max_HP = 20;
 	enemy5.max_MP = 10;
+	bandit_leader.max_HP = 25;
+	bandit_leader.max_MP = 15;
+	bandit_one.max_HP = 20;
+	bandit_one.max_MP = 0;
+	bandit_two.max_HP = 20;
+	bandit_two.max_MP = 0;
+
 
 theBeginning:
 	begin();
@@ -1102,6 +1124,70 @@ dec4:
 				goto gamewon;
 			}
 			randomEncounter();
+			if (theEnd.length == 2000) {
+				system("cls");
+				cout << maincharacter.name << " stops and sees something in the distance, \"What is that?\"" << endl;
+				cout << "Looking further, there is what appears to be movement coming from a group of trees." << endl;
+				cout << "You manage to get a little closer and you see three bandits surrounding what looks " << endl;
+				cout << "to be an adult man with salt papper hair, and tan skin. The man looks thin and tired " << endl;
+				cout << "as if he as been traveling for a long while. Next to him, he has his arm outstretched " << endl;
+				cout << "as if protecting someone. He is protecting someone-- a little boy with tauseled, brown " << endl;
+				cout << "hair. They both are backed up on a tree with no where to move. " << endl;
+				cout << hunter.name << " speaks up, \"More bandits it seems, probably some highway bandits looking " << endl;
+				cout << "to steal whatever left these people have.\" " << farmgirl.name << " chimes in, \"We have " << endl;
+				cout << "to help them. They would not be able to defend themselves, see how they look like they haven't " << endl;
+				cout << "eaten in days?\" " << knight.name << " observes the family duo, \"It seems they need assistance.\" " << endl;
+				cout << maincharacter.name << " knows what one must do, \"Let us hurry and help them, they also might know " << endl;
+				cout << "where everyone in the city has gone.\" The party hurries over to the trio of misfortunates, where " << endl;
+				cout << "now getting closer you get a whiff of a foul stench emanating from these men. " << maincharacter.name << endl;
+				cout << " \"It smells like someone needs to dip in the lake several times.\" as " << hunter.name << " holds its " << endl;
+				cout << "nose and waves the air with the other hand trying to dissipate the smell, \"It reaks of sulfur, " << endl;
+				cout << "did you have demons coming out of your pores?\" The lead bandit turns around and looks at the party " << endl;
+				cout << "\"You looking for a beating?\" " << maincharacter.name << " responds with more of the same, \"Well, it " << endl;
+				cout << "seems that your smell has already attacked us, why don't you let them go and get cleaned up?\" The bandit " << endl;
+				cout << "leader goes wide-eyed, \"I will do what I please you, whelp... in fact I think our guys will need to teach " << endl;
+				cout << "you a lesson in talking with strangers.\" The bandit leader motions for the rest of his crew and they all " << endl;
+				cout << "draw out there weapons. " << knight.name << " sighs, \"Let's get this over with.\"" << endl;
+				// Bandit battle function
+				banditBattle();
+				// Continue Story
+				cout << "The lead bandit motions the rest of his crew to run away, \"THIS ISN'T OVER!\" as he yells whilee scrambling. " << endl;
+				cout << hunter.name << " looks at them running away, \"YOU ARE THE PREY NOW!\" laughing and turn to the family duo, " << endl;
+				cout << "\"Are you alright?\" " << hunter.name << " looking at the man, and then sees the boy and kneels down. The man " << endl;
+				cout << "begins to speak, but the boy spouts, \"That was AWESOME!\" " << maincharacter.name << " walks forward showing " << endl;
+				cout << "a smile and contentment, \"Why are you both alone out here?\" The man relaxes his outstretched arm and explains " << endl;
+				cout << "that they just came from the city and recounts his tale: " << endl;
+				cout << endl;
+				cout << "\"It was a quiet night in Seamont, nothing out of the ordinary. Miles here, \" motioning to the boy, \" was just finishing " << endl;
+				cout << "up with the dishes when we heard the town alarm bell go off.I headed outside to see what others were saying, but all I could " << endl;
+				cout << "hear were screamsand then silence.I glimpsed a shadow going into these peopleand then they just walked out of the city.I was " << endl;
+				cout << "dumbfounded, but I knew I had to take care of Miles.I scribbled a note saying we were heading west, because I knew I had to go to " << endl;
+				cout << "Maltrep City, which is about a two week journey.If something happened to me, I hoped that someone would be able to findand help Miles " << endl;
+				cout << "should something unfortunate happened.There is a spirit master in the city of Malstrep by the name of Naomi. If there is anyone that " << endl;
+				cout << "might know what is going on it is her.\" " << endl;
+				cout << maincharacter.name << " looks down in empathy, 'all those people... possessed? How? Where?' Looking back at the man, \"Thank you for " << endl;
+				cout << "leaving that note. It gave us some clue to find answers to what happened. Now that we have some idea, let us deliver this message for " << endl;
+				cout << "you in Malstrep, I think there is a small town on our way there, and you can get the needed rest and see if anyone else from the city " << endl;
+				cout << "made it there as well.\" The man nods, still shaking from the bandit encounter, \"Yeah, I think that would help, I know that town well " << endl;
+				cout << "actually, it is Greyton and I do have relatives there. I only knew of the one spirit master though, so that was my first priority-- oh, " << endl;
+				cout << "I never introduced myself, I am Gentry and this is Miles. Thank you for stepping in to help us.\" " << maincharacter.name << " smiles, " << endl;
+				cout << "\"Of course, Gentry. We will deliver your news to the spirit master, Naomi, you have done well. Let us get you to your relatives.\" Gentry " << endl;
+				cout << "nods and gives a quivering smile, \"Alright, Miles, change of plans... we are heading to Greyton.\" Miles nods and both Gentry and Miles " << endl;
+				cout << "begin picking up their things as they travel with your party." << endl;
+			}
+			
+			if (theEnd.length == 1000) {
+				system("cls");
+				cout << "Your team makes it to the small town of Greyton. You see people milling about and laughter in the distance. It is night and day from what " << endl;
+				cout << "you witnessed in Seamont. The town looks unaffected from the events that happened only a week ago. Gentry and Miles thanked you again " << endl;
+				cout << "and invited your party to stay the night before the journey to Malstrep. The team accepted and rested knowing that they were able to get " << endl;
+				cout << "one family back safety. While the party was relaxing and having drinks, Gentry started telling his relatives all that happened and how " << endl;
+				cout << "this town could be next. Weary-eyed, the party goes to bed and starts out the next morning. " << maincharacter.name << "prepares to leave " << endl;
+				cout << "and Gentry comes and says, \"You are the only one that can get to Naomi and be able to find out what is happening.\" He looks down and then " << endl;
+				cout << "looks back up, \"All of you may be the only ones that can help us all...\" Thee party all gives varying degrees of acknowledgement with timid " << endl;
+				cout << "smiles. Everyone gave their goodbyes and then set-off to the city of Malstrep." << endl;
+			}
+
 	//		encounterChance = rand() % 10;
 		//	if (encounterChance > 5) {
 				// start an encounter between the party and an enemy, could use the other encounter fucntion here or try to work it into this option
@@ -1126,8 +1212,23 @@ dec4:
 		}
 	}
 	gamewon:
-	//End of Nicks poriton of code (with some functions and class changes at the top)
-	gameWon();
+	//End of Nicks portion of code (with some functions and class changes at the top)
+	cout << "Your party finally arrives at Malstep City. It was a long journey but finally you all made it in one piece. You know you must seek " << endl;
+	cout << "out a spirit master named Naomi, but where to look? You look around and see shuffling down the streets with vendors with produce and " << endl;
+	cout << "various objects. 'Maybe I could ask around for this Naomi character... hmm' You start seeing a conflict emerging at one of the vendors, " << endl;
+	cout << "you hear an argument over how much something is with a couple stewing over what food to buy. The couple begins to make a scene, and gets " << endl;
+	cout << "louder. You start walking closer to see if maybe you could say or do something to calm them down-- but then a lady steps between them, \"You " << endl;
+	cout << "mustn't let your emotions get the better of you Natalie and John. We discussed this, it will bring in unwanted entities to attach to you.\" " << endl;
+	cout << "The couple stops and reconsiders the argument and lightens up, \"We are sorry, Naomi, we just had a moment.\" Naomi nods, \"Yes, we all " << endl;
+	cout << "get moments, but we must recognize it and act accordingly. Otherwise, you will be feeeding ground for the malevolent spirits, do be careful.\" " << endl;
+	cout << "Naomi then looks at you and you get a sense that she knows. \"I believe you have something to tell me?\" " << maincharacter.name << " goes wide-eyed " << endl;
+	cout << ", \"How can you tell?\" Naomi smiles, \"This spirit tells, I simply listen... you are all important in the events to come and we must act quickly.\" " << endl;
+	cout << "Naomi motions for your party to follow her as she takes you to an alley way with a green door that look old with paint chips throughout. She opens " << endl;
+	cout << "the door and guides your team in and then she turns to your team with intense eyes, \"Our world may come to an end, but you may be the only ones that " << endl;
+	cout << "can save it. The darkness is upon us and I must prepare you all.\" You hear some screams coming from outside, \"Hurry, we don't have much time!\" " << endl;
+	cout << "Your party rushes behind her without a word. Naomi reaches for some protective items as you see her whispering some enchantment over them, and then approaches " << endl;
+	cout << "you and speaks with heaviness, \"Your journey is just now beginning...\"" << endl;
+ 	gameWon();
 	exit(0);
 gameover:
 
